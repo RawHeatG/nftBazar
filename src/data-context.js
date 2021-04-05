@@ -1,4 +1,4 @@
-import { useContext, createContext, useReducer } from "react";
+import {useContext, createContext, useReducer} from "react";
 import faker from "faker";
 
 const DataContext = createContext();
@@ -9,6 +9,7 @@ export function DataProvider({children}) {
     faker.seed(123);
 
     const data = [...Array(50)].map((item) => ({
+        quantity: 0,
         id: faker.random.uuid(),
         name: faker.commerce.productName(),
         image: faker.random.image(),
@@ -38,54 +39,96 @@ export function DataProvider({children}) {
             "professional"
         ]),
         color: faker.commerce.color()
-        })
-    );
-    
+    }));
+
+    function manipulateQuantity( state, {manipulation, item}){
+        switch(manipulation){
+
+            case "ADD_TO_CART":
+                {
+                    item = {...item, quantity: 1}
+                    return {...state, itemsInCart: [...state.itemsInCart, item]}
+                }
+            
+            case "INCREASE":
+                return { ...state, itemsInCart : [
+                    ...state.itemsInCart.map((cartItem) => cartItem.id === item.id ?  {...cartItem, quantity: cartItem.quantity + 1} : cartItem)
+                ]}
+
+            case "DECREASE":
+                return { ...state, itemsInCart : [
+                    ...state.itemsInCart.map((cartItem) => cartItem.id === item.id ?  {...cartItem, quantity: cartItem.quantity - 1} : cartItem)
+                ]}
+
+            case "REMOVE":
+                return { ...state, itemsInCart : [
+                    ...state.itemsInCart.filter((cartItem) => cartItem.id !==  item.id )
+                ]}
+
+            default:
+                return state;
+        }
+    }
+
     //reduce driver function
     function reducer(state, action) {
         switch (action.type) {
             case "TOGGLE_INVENTORY":
-            return (state = {
-                ...state,
-                showInventoryAll: !state.showInventoryAll
-            });
-    
+                return (state = {
+                    ...state,
+                    showInventoryAll: !state.showInventoryAll
+                });
+
             case "TOGGLE_DELIVERY":
-            return (state = {
-                ...state,
-                showFastDeliveryOnly: !state.showFastDeliveryOnly
-            });
+                return (state = {
+                    ...state,
+                    showFastDeliveryOnly: !state.showFastDeliveryOnly
+                });
             case "SORT":
-            return {
-                ...state,
-                sortBy: action.payload
-            };
+                return {
+                    ...state,
+                    sortBy: action.payload
+                };
+            case "MANIPULATE_QUANTITY":
+                return (
+                    manipulateQuantity( state, action.payload )
+                );
             default:
-            return state;
+                return state;
         }
     }
-    
-    //intializing useReduce()
-    const [{ showInventoryAll, showFastDeliveryOnly, sortBy }, dispatch] = useReducer(
-        reducer,
-        {
+
+    //intializing useReducer()
+    const [{
+        showInventoryAll,
+        showFastDeliveryOnly,
+        sortBy,
+        itemsInCart
+    }, dispatch] = useReducer(
+        reducer, {
             showInventoryAll: true,
             showFastDeliveryOnly: false,
-            sortBy: null
+            sortBy: null,
+            itemsInCart: []
         }
     );
 
-    return(
-        <DataContext.Provider value={{ showInventoryAll, showFastDeliveryOnly, sortBy , dispatch, data}}>
+    return ( 
+        <DataContext.Provider value = {
+            {
+                showInventoryAll,
+                showFastDeliveryOnly,
+                sortBy,
+                dispatch,
+                data,
+                itemsInCart
+            }
+        }>
             {children}
         </DataContext.Provider>
     )
-    
-
 }
 
-
-
-export function useData(){
+export function useData() {
     return useContext(DataContext);
 }

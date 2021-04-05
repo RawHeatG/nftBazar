@@ -1,9 +1,11 @@
 import React, { useReducer } from "react";
-import { useData } from "./data-context";
+import { useData } from "../data-context";
 import { ProductCard } from "./ProductCard";
+import { Cart } from "./Cart";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./styles.css";
 
-export default function App() {
+export function ProductListing() {
 
   const { showInventoryAll, showFastDeliveryOnly, sortBy , dispatch, data } = useData();
 
@@ -34,7 +36,6 @@ export default function App() {
     showFastDeliveryOnly,
     showInventoryAll
   });
-
   return (
     <>
       <fieldset>
@@ -89,7 +90,6 @@ export default function App() {
       </fieldset>
 
       <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
-        {console.log(filteredData)}
         {filteredData.map(
           (item) => (<ProductCard product={item}/>)
         )}

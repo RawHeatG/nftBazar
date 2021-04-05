@@ -1,15 +1,18 @@
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 
-import ProductListing from "./ProductListing";
-import {DataProvider} from "./data-context"
+import { App } from "./App";
+import { DataProvider } from "./data-context";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <StrictMode>
-    <DataProvider>
-      <ProductListing />
-    </DataProvider>
+    <Router>
+      <DataProvider>
+        <App />
+      </DataProvider>
+    </Router>
   </StrictMode>,
   rootElement
 );
