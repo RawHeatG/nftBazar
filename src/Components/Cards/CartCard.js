@@ -1,8 +1,8 @@
 import { useData } from "../../Contexts";
 import "../../styles.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-export function ProductCard({product}) {
+
+export function CartCard({product}) {
     let {
         id,
         name,
@@ -15,31 +15,24 @@ export function ProductCard({product}) {
         quantity
       } = product;
     const { dispatch, itemsInCart, itemsInWishList } = useData();
-    const CartButtons = () => {
+    const WhichButtonToShow = () => {
         if(itemsInCart.find((item) => item.id === id)){
             return(
                 <div>
-                    <Link to="/cart"><button>Go To Cart</button></Link>
+                    {quantity>1 ? 
+                        (<button onClick={() => dispatch({type: "MANIPULATE_CART", payload: {manipulation: "DECREASE", item: product}})} >-</button>)
+                        :
+                        (<button onClick={() => dispatch({type: "MANIPULATE_CART", payload: {manipulation: "REMOVE", item: product}})} >Remove</button>)
+                    }
+                    
+                    <h3>{quantity}</h3>
+                    <button onClick={() => dispatch({type: "MANIPULATE_CART", payload: {manipulation: "INCREASE", item: product}})} >+</button>
                 </div>
             )
         }
         return(
             <div>
                 <button onClick={() => dispatch({type: "MANIPULATE_CART", payload: {manipulation: "ADD_TO_CART", item: product}})} >Add To Cart</button>
-            </div>
-        )
-    }
-    const WishListButtons = () => {
-        if(itemsInWishList.find((item) => item.id === id)){
-            return(
-                <div>
-                    <button onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "REMOVE_FROM_WISHLIST", item: product}})} >Remove from Wishlist</button>
-                </div>
-            )
-        }
-        return(
-            <div>
-                <button onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "ADD_TO_WISHLIST", item: product}})} >Add to WishList</button>
             </div>
         )
     }
@@ -62,8 +55,8 @@ export function ProductCard({product}) {
             {!inStock && <div> Out of Stock </div>}
             <div>{level}</div>
             {fastDelivery ? ( <div> Fast Delivery </div> ) : ( <div> 3 days minimum </div> )}
-            {WishListButtons()}
-            {CartButtons()}
+            {itemsInWishList.find((item) => item.id === id) ? ( <button onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "REMOVE_FROM_WISHLIST", item: product}})} >Go to WishList</button> ) : ( <button onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "ADD_TO_WISHLIST", item: product}})} >Add to WishList</button>)}
+            {WhichButtonToShow()}
                         
         </div>
     )

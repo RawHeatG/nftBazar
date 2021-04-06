@@ -2,7 +2,6 @@ import React, { useReducer } from "react";
 import { useData } from "../Contexts";
 import { ProductCard } from "./Cards";
 import { Cart } from "./Cart";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "../styles.css";
 
 export function ProductListing() {
@@ -82,10 +81,6 @@ export function ProductListing() {
             onChange={() => dispatch({ type: "TOGGLE_DELIVERY" })}
           />
           Fast Delivery Only
-        </label>
-        <label style={{ display: "block", marginTop: "1rem" }}>
-          Price Range
-          <input type="range" />
         </label>
       </fieldset>
 

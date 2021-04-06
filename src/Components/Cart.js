@@ -1,5 +1,5 @@
 import { useData } from "../Contexts";
-import { ProductCard } from "./Cards";
+import { CartCard } from "./Cards";
 import "../styles.css";
 
 export function Cart() {
@@ -7,7 +7,7 @@ export function Cart() {
     let total = 0;
     return(
         <>
-            {(itemsInCart.lentgh === 0) ?
+            {(itemsInCart.length === 0) ?
                 (
                     <div>
                         <h1>Cart is Empty</h1>
@@ -16,7 +16,7 @@ export function Cart() {
             :
                 (
                     <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
-                        {itemsInCart.map( (item) => (<ProductCard product={item} />) )}
+                        {itemsInCart.map( (item) => (<CartCard product={item} />) )}
                     </div>
                 )
             }
