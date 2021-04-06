@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import { App } from "./App";
-import { DataProvider } from "./data-context";
+import { DataProvider } from "./Contexts";
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(

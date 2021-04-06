@@ -1,4 +1,4 @@
-import { useData } from "../data-context";
+import { useData } from "../Contexts";
 import "./styles.css";
 
 export function ProductCard({product}) {
@@ -13,7 +13,23 @@ export function ProductCard({product}) {
         fastDelivery,
         quantity
       } = product;
-    const { dispatch } = useData();
+    const { dispatch, itemsInCart } = useData();
+    const WhichButtonToShow = () => {
+        if(itemsInCart.find((item) => item.id === id)){
+            return(
+                <div>
+                    <button onClick={() => dispatch({type: "MANIPULATE_QUANTITY", payload: {manipulation: "DECREASE", item: product}})} >-</button>
+                    <h3>{quantity}</h3>
+                    <button onClick={() => dispatch({type: "MANIPULATE_QUANTITY", payload: {manipulation: "INCREASE", item: product}})} >+</button>
+                </div>
+            )
+        }
+        return(
+            <div>
+                <button onClick={() => dispatch({type: "MANIPULATE_QUANTITY", payload: {manipulation: "ADD_TO_CART", item: product}})} >Add To Cart</button>
+            </div>
+        )
+    }
     return(
 
         <div
@@ -33,15 +49,7 @@ export function ProductCard({product}) {
             {!inStock && <div> Out of Stock </div>}
             <div>{level}</div>
             {fastDelivery ? ( <div> Fast Delivery </div> ) : ( <div> 3 days minimum </div> )}
-            {(quantity === 0) ? ( <button onClick={() => dispatch({type: "MANIPULATE_QUANTITY", payload: {manipulation: "ADD_TO_CART", item: product}})} >Add To Cart</button> ) :
-                (   
-                    <div>
-                        <button onClick={() => dispatch({type: "MANIPULATE_QUANTITY", payload: {manipulation: "DECREASE", item: product}})} >-</button>
-                        <h3>{quantity}</h3>
-                        <button onClick={() => dispatch({type: "MANIPULATE_QUANTITY", payload: {manipulation: "INCREASE", item: product}})} >+</button>
-                    </div>
-                )
-            }
+            {WhichButtonToShow()}
                         
         </div>
     )

@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import { useData } from "../data-context";
+import { useData } from "../Contexts";
 import { ProductCard } from "./ProductCard";
 import { Cart } from "./Cart";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";

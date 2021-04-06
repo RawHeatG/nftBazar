@@ -5,7 +5,7 @@ export function App(){
 
     return(
         <>
-            <h1>Or pranshu </h1>
+            <h1>NFT Baazar</h1>
             <nav>
                 <Link to="/">Home</Link> ||
                 <Link to="/products">ProductListing</Link> ||
