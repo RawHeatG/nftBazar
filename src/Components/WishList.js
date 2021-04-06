@@ -1,11 +1,12 @@
 import { useData } from "../Contexts";
-import { ProductCard } from "./ProductCard"
+import { ProductCard } from "./Cards";
+import "../styles.css";
 
 export function WishList() {
     const{ itemsInWishList } = useData();
     return(
         <>
-            {(itemsInWishList.lentgh === 0) ?
+            {(itemsInWishList.length === 0) ?
                 (
                     <div>
                         <h1>Nothing's here in WishList :(</h1>

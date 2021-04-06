@@ -1,5 +1,5 @@
-import { useData } from "../Contexts";
-import "./styles.css";
+import { useData } from "../../Contexts";
+import "../../styles.css";
 
 export function ProductCard({product}) {
     let {
@@ -35,10 +35,10 @@ export function ProductCard({product}) {
         <div
             key={id}
             style={{
-            border: "1px solid #4B5563",
+            border: "1px solid orange",
             borderRadius: "0 0 0.5rem 0.5rem",
             margin: "1rem",
-            maxWidth: "40%",
+            maxWidth: "25%",
             padding: "0 0 1rem"
             }}
         >

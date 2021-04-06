@@ -1,9 +1,9 @@
 import React, { useReducer } from "react";
 import { useData } from "../Contexts";
-import { ProductCard } from "./ProductCard";
+import { ProductCard } from "./Cards";
 import { Cart } from "./Cart";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import "./styles.css";
+import "../styles.css";
 
 export function ProductListing() {
 
