@@ -13,20 +13,20 @@ export function ProductCard({product}) {
         fastDelivery,
         quantity
       } = product;
-    const { dispatch, itemsInCart } = useData();
+    const { dispatch, itemsInCart, itemsInWishList } = useData();
     const WhichButtonToShow = () => {
         if(itemsInCart.find((item) => item.id === id)){
             return(
                 <div>
-                    <button onClick={() => dispatch({type: "MANIPULATE_QUANTITY", payload: {manipulation: "DECREASE", item: product}})} >-</button>
+                    <button onClick={() => dispatch({type: "MANIPULATE_CART", payload: {manipulation: "DECREASE", item: product}})} >-</button>
                     <h3>{quantity}</h3>
-                    <button onClick={() => dispatch({type: "MANIPULATE_QUANTITY", payload: {manipulation: "INCREASE", item: product}})} >+</button>
+                    <button onClick={() => dispatch({type: "MANIPULATE_CART", payload: {manipulation: "INCREASE", item: product}})} >+</button>
                 </div>
             )
         }
         return(
             <div>
-                <button onClick={() => dispatch({type: "MANIPULATE_QUANTITY", payload: {manipulation: "ADD_TO_CART", item: product}})} >Add To Cart</button>
+                <button onClick={() => dispatch({type: "MANIPULATE_CART", payload: {manipulation: "ADD_TO_CART", item: product}})} >Add To Cart</button>
             </div>
         )
     }
@@ -49,6 +49,7 @@ export function ProductCard({product}) {
             {!inStock && <div> Out of Stock </div>}
             <div>{level}</div>
             {fastDelivery ? ( <div> Fast Delivery </div> ) : ( <div> 3 days minimum </div> )}
+            {itemsInWishList.find((item) => item.id === id) ? ( <button onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "REMOVE_FROM_WISHLIST", item: product}})} >Go to WishList</button> ) : ( <button onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "ADD_TO_WISHLIST", item: product}})} >Add to WishList</button>)}
             {WhichButtonToShow()}
                         
         </div>

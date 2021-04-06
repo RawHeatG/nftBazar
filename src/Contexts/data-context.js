@@ -41,7 +41,7 @@ export function DataProvider({children}) {
         color: faker.commerce.color()
     }));
 
-    function manipulateQuantity( state, {manipulation, item}){
+    function manipulateCart( state, {manipulation, item}){
         switch(manipulation){
 
             case "ADD_TO_CART":
@@ -70,6 +70,18 @@ export function DataProvider({children}) {
         }
     }
 
+    function manipulateWishList( state, {manipulation, item}) {
+        switch (manipulation){
+            case "ADD_TO_WISHLIST":
+                return {...state, itemsInWishList: [...state.itemsInWishList, item]};
+            case "REMOVE_FROM_WISHLIST":
+                return { ...state, itemsInWishList : [
+                    ...state.itemsInWishList.filter((wishListItem) => wishListItem.id !==  item.id )
+                ]}
+        }
+        
+    }
+
     //reduce driver function
     function reducer(state, action) {
         switch (action.type) {
@@ -89,9 +101,13 @@ export function DataProvider({children}) {
                     ...state,
                     sortBy: action.payload
                 };
-            case "MANIPULATE_QUANTITY":
+            case "MANIPULATE_CART":
                 return (
-                    manipulateQuantity( state, action.payload )
+                    manipulateCart( state, action.payload )
+                );
+            case "MANIPULATE_WISHLIST":
+                return (
+                    manipulateWishList( state, action.payload )
                 );
             default:
                 return state;
@@ -103,13 +119,15 @@ export function DataProvider({children}) {
         showInventoryAll,
         showFastDeliveryOnly,
         sortBy,
-        itemsInCart
+        itemsInCart,
+        itemsInWishList
     }, dispatch] = useReducer(
         reducer, {
             showInventoryAll: true,
             showFastDeliveryOnly: false,
             sortBy: null,
-            itemsInCart: []
+            itemsInCart: [],
+            itemsInWishList: []
         }
     );
 
@@ -121,7 +139,8 @@ export function DataProvider({children}) {
                 sortBy,
                 dispatch,
                 data,
-                itemsInCart
+                itemsInCart,
+                itemsInWishList
             }
         }>
             {children}
