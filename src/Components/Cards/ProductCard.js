@@ -19,13 +19,13 @@ export function ProductCard({product}) {
         if(itemsInCart.find((item) => item.id === id)){
             return(
                 <div>
-                    <Link to="/cart"><button>Go To Cart</button></Link>
+                    <Link to="/cart"><button class="btn btn-tertiary" >Go To Cart</button></Link>
                 </div>
             )
         }
         return(
             <div>
-                <button onClick={() => dispatch({type: "MANIPULATE_CART", payload: {manipulation: "ADD_TO_CART", item: product}})} >Add To Cart</button>
+                <button class="btn btn-primary" onClick={() => dispatch({type: "MANIPULATE_CART", payload: {manipulation: "ADD_TO_CART", item: product}})} >Add To Cart</button>
             </div>
         )
     }
@@ -33,19 +33,35 @@ export function ProductCard({product}) {
         if(itemsInWishList.find((item) => item.id === id)){
             return(
                 <div>
-                    <button onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "REMOVE_FROM_WISHLIST", item: product}})} >Remove from Wishlist</button>
+                    <button class="btn btn-tertiary" onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "REMOVE_FROM_WISHLIST", item: product}})} >Remove from Wishlist</button>
                 </div>
             )
         }
         return(
             <div>
-                <button onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "ADD_TO_WISHLIST", item: product}})} >Add to WishList</button>
+                <button class="btn btn-tertiary" onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "ADD_TO_WISHLIST", item: product}})} >Add to WishList</button>
             </div>
         )
     }
     return(
+        <>
+        <div key={id} class="card">
+            {/* <img class="card-wishlist" width="100%" height="auto" src={image} alt={productName} /> */}
+            <img class="card-img" width="100%" height="auto" src={image} alt={productName} />
+            <div class="card-content">
+                <h2 class="card-heading">{name}</h2>
+                <div class="price">
+                <span class="card-price">₹ {price}</span><s>1000</s>
+                </div>
+                {inStock && <div> In Stock </div>}
+                {!inStock && <div> Out of Stock </div>}
+                {fastDelivery ? ( <div> Fast Delivery </div> ) : ( <div> 3 days minimum </div> )}
+                {WishListButtons()}
+                {CartButtons()}
+            </div>
+        </div>
 
-        <div
+        {/* <div
             key={id}
             style={{
             border: "1px solid orange",
@@ -65,6 +81,7 @@ export function ProductCard({product}) {
             {WishListButtons()}
             {CartButtons()}
                         
-        </div>
+        </div> */}
+    </>
     )
 }

@@ -5,12 +5,16 @@ export function App(){
 
     return(
         <>
-            <h1>NFT Baazar</h1>
-            <nav>
-                <Link to="/">ProductListing</Link> ||
-                <Link to="/cart">Cart</Link> ||
-                <Link to="/wishlist">WishList</Link>
-            </nav>
+            <div class="navbar">
+                <h1>NFT Baazar</h1>
+                <div class="nav-right">
+                    <ul class="nav-menu">
+                    <li><Link to="/">ProductListing</Link></li>
+                    <li><Link to="/cart">Cart</Link></li>
+                    <li><Link to="/wishlist">WishList</Link></li>
+                    </ul>
+                </div>
+            </div>
             <Routes>
                 <Route path="/" element={<ProductListing />} />
                 <Route path="/cart" element={<Cart />} />
