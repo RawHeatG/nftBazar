@@ -9,7 +9,7 @@ export function App(){
                 <h1>NFT Baazar</h1>
                 <div class="nav-right">
                     <ul class="nav-menu">
-                    <li><Link to="/">ProductListing</Link></li>
+                    <li><Link to="/">Products</Link></li>
                     <li><Link to="/cart">Cart</Link></li>
                     <li><Link to="/wishlist">WishList</Link></li>
                     <li><Link to="/login">Login</Link></li>
