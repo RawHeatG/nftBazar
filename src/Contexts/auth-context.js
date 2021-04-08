@@ -1,39 +1,31 @@
 import { createContext, useContext } from "react";
 import { useState } from "react";
+import { dummyAuthApi } from "../dummyAuthApi"
+
 const AuthContext = createContext();
 
 export function AuthProvider({children}){
-    const [ isLoggedIn, setIsLoggedIn ] = useState(false);
+    const [ isUserLoggedIn, setIsUserLoggedIn ] = useState(false);
 
-    const usersDB =  [
-            {
-                username: "rohit",
-                password: "honeySingh"
-            },
-            {
-                username: "dhairya",
-                password: "Jstar"
-            },
-            {
-                username: "tanay",
-                password: "dhruv"
+    
+
+    async function loginUserWithCredentials(username, password) {
+        try{
+            const response = await dummyAuthApi(username, password)
+            if(response.success){
+                localStorage?.setItem(
+                    "login",
+                    JSON.stringify({ isUserLoggedIn: true })
+                );
+                setIsUserLoggedIn(true);
             }
-        ];
-
-    const loginWithCredentials = (user, pass) => {
-        const details = usersDB.find((item) => item.username === user )
-        if(details){
-            if(details.password === pass)
-                setIsLoggedIn(true);
-            else(console.log("Wrong Password"));
+        }catch (error){
+            console.error("Error!", error);
         }
-        else{
-            console.log("Wrong Credentials");
-            }
     }
 
     return (
-        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, loginWithCredentials }}>
+        <AuthContext.Provider value={{ isUserLoggedIn, loginUserWithCredentials }}>
             {children}
         </AuthContext.Provider>
     )
