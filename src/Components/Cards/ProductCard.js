@@ -60,28 +60,6 @@ export function ProductCard({product}) {
                 {CartButtons()}
             </div>
         </div>
-
-        {/* <div
-            key={id}
-            style={{
-            border: "1px solid orange",
-            borderRadius: "0 0 0.5rem 0.5rem",
-            margin: "1rem",
-            maxWidth: "25%",
-            padding: "0 0 1rem"
-            }}
-        >
-            <img src={image} width="100%" height="auto" alt={productName} />
-            <h3> {name} </h3>
-            <div>₹ {price}</div>
-            {inStock && <div> In Stock </div>}
-            {!inStock && <div> Out of Stock </div>}
-            <div>{level}</div>
-            {fastDelivery ? ( <div> Fast Delivery </div> ) : ( <div> 3 days minimum </div> )}
-            {WishListButtons()}
-            {CartButtons()}
-                        
-        </div> */}
     </>
     )
 }

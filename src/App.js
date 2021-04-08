@@ -1,4 +1,4 @@
-import { Cart, ProductListing, WishList } from "./Components";
+import { Cart, ProductListing, WishList, Login } from "./Components";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export function App(){
@@ -12,6 +12,7 @@ export function App(){
                     <li><Link to="/">ProductListing</Link></li>
                     <li><Link to="/cart">Cart</Link></li>
                     <li><Link to="/wishlist">WishList</Link></li>
+                    <li><Link to="/login">Login</Link></li>
                     </ul>
                 </div>
             </div>
@@ -19,6 +20,7 @@ export function App(){
                 <Route path="/" element={<ProductListing />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/wishlist" element={<WishList />} />
+                <Route path="/login" element={<Login />} />
             </Routes>
         </>
     )
