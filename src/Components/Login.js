@@ -1,9 +1,7 @@
-import {useState} from "react";
+import { useAuth } from "../Contexts"
 
 export function Login() {
-   
-    const [ isLoggedIn, setIsLoggedIn] = useState(false);
-
+    const { isLoggedIn, setIsLoggedIn} =useAuth();
     const loginHandler = () => {
         setIsLoggedIn((status) => !status);
     }
