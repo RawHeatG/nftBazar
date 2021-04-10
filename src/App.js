@@ -1,4 +1,4 @@
-import { Cart, ProductListing, WishList, Login } from "./Components";
+import { Cart, ProductListing, WishList, Login, Signup } from "./Components";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export function App(){
@@ -21,6 +21,7 @@ export function App(){
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/wishlist" element={<WishList />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
             </Routes>
         </>
     )

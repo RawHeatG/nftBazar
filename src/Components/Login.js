@@ -1,6 +1,10 @@
-import { useAuth } from "../Contexts"
+import { useAuth } from "../Contexts";
+import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 export function Login() {
+
+
     const { isUserLoggedIn, loginUserWithCredentials } = useAuth();
     
     const loginHandler = () => {
@@ -12,7 +16,15 @@ export function Login() {
             {isUserLoggedIn && <h1>Swaagat h aapka Login m👋</h1>}
             {!isUserLoggedIn && <h1>Chaabi kha bhul gye ***** 🤐</h1>}
 
-            <button class="btn btn-secondary" onClick={loginHandler}>Login</button>
+            <div class="form">
+                <div class="form-wrapper">
+                    <h1>NFT Baazar</h1>
+                    <input placeholder="Enter your username..." />
+                    <input type="password" placeholder="Password..." />
+                    <button class="btn btn-primary" onClick={loginHandler} >Log In</button>
+                    <p>Don't have an accont? <Link to="/signup"><span>Sign Up</span></Link></p>
+                </div>
+            </div>
         </>
     )
 }
