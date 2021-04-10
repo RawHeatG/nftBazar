@@ -1,24 +1,27 @@
 // Database
-const Users =  [
-    {
-        username: "rohit",
-        password: "honeySingh"
+const Users = [
+    { 
+      name: "rohit",
+      username: "rohit",
+      password: "honeySingh"
     },
     {
-        username: "dhairya",
-        password: "Jstar"
+      name: "dhairya",
+      username: "dhairya",
+      password: "Jstar"
     },
     {
-        username: "tanay",
-        password: "dhruv"
+      name: "tanay",
+      username: "tanay",
+      password: "dhruv"
     }
 ];
 
-const findUserByUserName = (username) => {
+export const findUserByUserName = (username) => {
   return Users.find((user) => user.username === username);
 };
 
-export const dummyAuthApi = (username, password) => {
+export const checkUserDetails = (username, password) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const user = findUserByUserName(username);

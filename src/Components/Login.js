@@ -7,7 +7,7 @@ export function Login() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
-    const { isUserLoggedIn, loginUserWithCredentials } = useAuth();
+    const { currentUser, loginUserWithCredentials } = useAuth();
     
     const loginHandler = () => {
         loginUserWithCredentials(username, password);
@@ -15,8 +15,8 @@ export function Login() {
 
     return(
         <>
-            {isUserLoggedIn && <h1>Swaagat h aapka Login m👋</h1>}
-            {!isUserLoggedIn && <h1>Chaabi kha bhul gye ***** 🤐</h1>}
+            {currentUser && <h1>Swaagat h {currentUser.name} aapka Login m👋</h1>}
+            {!currentUser && <h1>Chaabi kha bhul gye ***** 🤐</h1>}
 
             <div class="form">
                 <div class="form-wrapper">

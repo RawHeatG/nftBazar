@@ -1,7 +1,10 @@
 import { Cart, ProductListing, WishList, Login, Signup } from "./Components";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { useAuth } from "./Contexts"
 
 export function App(){
+
+    const { currentUser } = useAuth();
 
     return(
         <>
@@ -12,7 +15,8 @@ export function App(){
                     <li><Link to="/">Products</Link></li>
                     <li><Link to="/cart">Cart</Link></li>
                     <li><Link to="/wishlist">WishList</Link></li>
-                    <li><Link to="/login">Login</Link></li>
+                    {!currentUser && <li><Link to="/login">Login</Link></li>}
+                    {currentUser && <li>Hi {currentUser.name} </li>}
                     </ul>
                 </div>
             </div>
