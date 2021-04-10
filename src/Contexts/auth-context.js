@@ -43,8 +43,13 @@ export function AuthProvider({children}){
         }
     }
 
+    function logoutUser() {
+        localStorage.removeItem("nftLogin");
+        setCurrentUser();
+    }
+
     return (
-        <AuthContext.Provider value={{ currentUser, loginUserWithCredentials, signupUserWithCredentials }}>
+        <AuthContext.Provider value={{ currentUser, loginUserWithCredentials, signupUserWithCredentials, logoutUser }}>
             {children}
         </AuthContext.Provider>
     )

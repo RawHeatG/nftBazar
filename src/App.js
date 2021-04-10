@@ -1,4 +1,4 @@
-import { Cart, ProductListing, WishList, Login, Signup } from "./Components";
+import { Cart, ProductListing, WishList, Login, Signup, Logout } from "./Components";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useAuth } from "./Contexts"
 
@@ -16,7 +16,7 @@ export function App(){
                     <li><Link to="/cart">Cart</Link></li>
                     <li><Link to="/wishlist">WishList</Link></li>
                     {!currentUser && <li><Link to="/login">Login</Link></li>}
-                    {currentUser && <li>Hi {currentUser.name} </li>}
+                    {currentUser && <li><Link to="/logout">Hi {currentUser.name}</Link></li>}
                     </ul>
                 </div>
             </div>
@@ -26,6 +26,7 @@ export function App(){
                 <Route path="/wishlist" element={<WishList />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/logout" element={<Logout />} />
             </Routes>
         </>
     )
