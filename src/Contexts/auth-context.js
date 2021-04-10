@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useState } from "react";
 import { checkUserDetails, findUserByUserName } from "../dummyAuthApi";
 
@@ -7,6 +7,15 @@ const AuthContext = createContext();
 export function AuthProvider({children}){
 
     const [ currentUser, setCurrentUser ] = useState();
+
+    useEffect(() => {
+        try{
+            const a = JSON.parse(localStorage?.getItem("nftLogin"));
+            setCurrentUser(a);
+        }catch(error){
+            console.error(error)
+        }
+    }, [])
 
     async function loginUserWithCredentials(username, password) {
         try{
