@@ -16,7 +16,7 @@ export function Login() {
     return(
         <>
             {currentUser && <h1>Swaagat h {currentUser.name} aapka Login m👋</h1>}
-            {!currentUser && <h1>Chaabi kha bhul gye ***** 🤐</h1>}
+            {!currentUser && <h1>Chaabi kha bhul gye 🤐</h1>}
 
             <div class="form">
                 <div class="form-wrapper">
