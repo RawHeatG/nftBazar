@@ -1,5 +1,5 @@
 import { useData } from "../Contexts";
-import { ProductCard } from "./Cards";
+import { WishListCard } from "./Cards";
 import "../styles.css";
 
 export function WishList() {
@@ -15,7 +15,7 @@ export function WishList() {
             :
                 (
                     <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
-                        {itemsInWishList.map( (item) => (<ProductCard product={item} />) )}
+                        {itemsInWishList.map( (item) => (<WishListCard product={item} />) )}
                     </div>
                 )
             }

@@ -49,6 +49,15 @@ export function DataProvider({children}) {
                     item = {...item, quantity: 1}
                     return {...state, itemsInCart: [...state.itemsInCart, item]}
                 }
+
+            case "MOVE_TO_CART":
+                {
+                    item = {...item, quantity: 1}
+                    return {...state,
+                        itemsInCart: [...state.itemsInCart, item],
+                        itemsInWishList : [...state.itemsInWishList.filter((wishListItem) => wishListItem.id !==  item.id )]
+                    }
+                }
             
             case "INCREASE":
                 return { ...state, itemsInCart : [
@@ -61,9 +70,9 @@ export function DataProvider({children}) {
                 ]}
 
             case "REMOVE":
-                return { ...state, itemsInCart : [
-                    ...state.itemsInCart.filter((cartItem) => cartItem.id !==  item.id )
-                ]}
+                return { ...state, 
+                    itemsInCart : [ ...state.itemsInCart.filter((cartItem) => cartItem.id !==  item.id ) ]
+                }
 
             default:
                 return state;
@@ -75,9 +84,9 @@ export function DataProvider({children}) {
             case "ADD_TO_WISHLIST":
                 return {...state, itemsInWishList: [...state.itemsInWishList, item]};
             case "REMOVE_FROM_WISHLIST":
-                return { ...state, itemsInWishList : [
-                    ...state.itemsInWishList.filter((wishListItem) => wishListItem.id !==  item.id )
-                ]}
+                return { ...state,
+                    itemsInWishList : [ ...state.itemsInWishList.filter((wishListItem) => wishListItem.id !==  item.id ) ]
+                }
             case "MOVE_TO_WISHLIST":
                 return { ...state,
                     itemsInCart : [...state.itemsInCart.filter((cartItem) => cartItem.id !==  item.id )], 
