@@ -1,6 +1,6 @@
 import { useData } from "../Contexts";
 import "../styles.css";
-import { Link } from "react-router-dom";
+import { Link, Route } from "react-router-dom";
 
 export function ProductCard({product}) {
     let {
@@ -46,7 +46,6 @@ export function ProductCard({product}) {
     return(
         <>
         <div key={id} class="card">
-            {/* <img class="card-wishlist" width="100%" height="auto" src={image} alt={productName} /> */}
             <img class="card-img" width="100%" height="auto" src={image} alt={productName} />
             <div class="card-content">
                 <h2 class="card-heading">{name}</h2>
@@ -58,6 +57,7 @@ export function ProductCard({product}) {
                 {fastDelivery ? ( <div> Fast Delivery </div> ) : ( <div> 3 days minimum </div> )}
                 {WishListButtons()}
                 {CartButtons()}
+                <Link to={`/products/${id}`} ><button class="btn btn-secondary" >View Details</button></Link>
             </div>
         </div>
     </>
