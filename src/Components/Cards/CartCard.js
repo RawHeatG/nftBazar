@@ -55,7 +55,7 @@ export function CartCard({product}) {
             {!inStock && <div> Out of Stock </div>}
             <div>{level}</div>
             {fastDelivery ? ( <div> Fast Delivery </div> ) : ( <div> 3 days minimum </div> )}
-            {itemsInWishList.find((item) => item.id === id) ? ( <button onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "REMOVE_FROM_WISHLIST", item: product}})} >Go to WishList</button> ) : ( <button onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "ADD_TO_WISHLIST", item: product}})} >Add to WishList</button>)}
+            {!itemsInWishList.find((item) => item.id === id) && ( <button onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "MOVE_TO_WISHLIST", item: product}})} >Move to WishList</button>)}
             {WhichButtonToShow()}
                         
         </div>

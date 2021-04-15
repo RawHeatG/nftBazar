@@ -78,6 +78,11 @@ export function DataProvider({children}) {
                 return { ...state, itemsInWishList : [
                     ...state.itemsInWishList.filter((wishListItem) => wishListItem.id !==  item.id )
                 ]}
+            case "MOVE_TO_WISHLIST":
+                return { ...state,
+                    itemsInCart : [...state.itemsInCart.filter((cartItem) => cartItem.id !==  item.id )], 
+                    itemsInWishList: [...state.itemsInWishList, item]
+                }
         }
         
     }
