@@ -1,5 +1,5 @@
 import { useData } from "../Contexts";
-import { CartCard } from "./Cards";
+import { CartCard } from "../Components";
 import "../styles.css";
 
 export function Cart() {
@@ -21,15 +21,17 @@ export function Cart() {
                 )
             }
             
-            <ol>
-                {itemsInCart.map( ({name, quantity, price}) => {
-                    total = total + price*quantity;
-                    return(<li><div>
-                        <p>{name} x {quantity} = {price*quantity}</p>
-                    </div></li>)
-                })}
-            </ol>
-            <h2>Total amount: {total}</h2>
+            <div>
+                <ol>
+                    {itemsInCart.map( ({name, quantity, price}) => {
+                        total = total + price*quantity;
+                        return(<li><div>
+                            <p>{name} x {quantity} = {price*quantity}</p>
+                        </div></li>)
+                    })}
+                </ol>
+                <h2>Total amount: {total}</h2>
+            </div>
             
         </>
     )

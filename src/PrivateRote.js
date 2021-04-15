@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link, Navigate } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import { useAuth } from "./Contexts";
 
 export function PrivateRoute({ path, ...props}) {

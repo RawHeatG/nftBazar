@@ -1,8 +1,8 @@
-import { useData } from "../../Contexts";
-import "../../styles.css";
+import { useData } from "../Contexts";
+import "../styles.css";
 import { Link } from "react-router-dom";
 
-export function WishListCard({product}) {
+export function ProductCard({product}) {
     let {
         id,
         name,
@@ -25,7 +25,21 @@ export function WishListCard({product}) {
         }
         return(
             <div>
-                <button class="btn btn-primary" onClick={() => dispatch({type: "MANIPULATE_CART", payload: {manipulation: "MOVE_TO_CART", item: product}})} >Move To Cart</button>
+                <button class="btn btn-primary" onClick={() => dispatch({type: "MANIPULATE_CART", payload: {manipulation: "ADD_TO_CART", item: product}})} >Add To Cart</button>
+            </div>
+        )
+    }
+    const WishListButtons = () => {
+        if(itemsInWishList.find((item) => item.id === id)){
+            return(
+                <div>
+                    <button class="btn btn-tertiary" onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "REMOVE_FROM_WISHLIST", item: product}})} >Remove from Wishlist</button>
+                </div>
+            )
+        }
+        return(
+            <div>
+                <button class="btn btn-tertiary" onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "ADD_TO_WISHLIST", item: product}})} >Add to WishList</button>
             </div>
         )
     }
@@ -42,9 +56,7 @@ export function WishListCard({product}) {
                 {inStock && <div> In Stock </div>}
                 {!inStock && <div> Out of Stock </div>}
                 {fastDelivery ? ( <div> Fast Delivery </div> ) : ( <div> 3 days minimum </div> )}
-                <div>
-                    <button class="btn btn-tertiary" onClick={() => dispatch({type: "MANIPULATE_WISHLIST", payload: {manipulation: "REMOVE_FROM_WISHLIST", item: product}})} >Remove from Wishlist</button>
-                </div>
+                {WishListButtons()}
                 {CartButtons()}
             </div>
         </div>

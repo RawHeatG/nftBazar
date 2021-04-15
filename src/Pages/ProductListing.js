@@ -1,7 +1,6 @@
-import React, { useReducer } from "react";
+import React from "react";
 import { useData } from "../Contexts";
-import { ProductCard } from "./Cards";
-import { Cart } from "./Cart";
+import { ProductCard } from "../Components";
 import "../styles.css";
 
 export function ProductListing() {

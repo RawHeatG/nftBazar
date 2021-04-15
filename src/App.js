@@ -1,6 +1,6 @@
-import { Cart, ProductListing, WishList, Login, Signup, Logout } from "./Components";
+import { Cart, ProductListing, WishList, Login, Signup, Logout } from "./Pages";
 import { PrivateRoute } from "./PrivateRote";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { useAuth } from "./Contexts"
 
 export function App(){

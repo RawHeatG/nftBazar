@@ -1,6 +1,6 @@
 import { useAuth } from "../Contexts";
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 export function Login() {

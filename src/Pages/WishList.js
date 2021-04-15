@@ -1,5 +1,5 @@
 import { useData } from "../Contexts";
-import { WishListCard } from "./Cards";
+import { WishListCard } from "../Components";
 import "../styles.css";
 
 export function WishList() {
