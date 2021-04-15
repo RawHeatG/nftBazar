@@ -1,12 +1,16 @@
 import { createContext, useContext, useEffect } from "react";
 import { useState } from "react";
 import { checkUserDetails, findUserByUserName } from "../dummyAuthApi";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export function AuthProvider({children}){
 
     const [ currentUser, setCurrentUser ] = useState();
+    
+    const { state } = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         try{
@@ -27,6 +31,7 @@ export function AuthProvider({children}){
                     JSON.stringify(user)
                 );
                 setCurrentUser(user);
+                navigate(state.from);
             }
         }catch (error){
             console.error("Error occured during login", error);
