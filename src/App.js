@@ -1,4 +1,5 @@
 import { Cart, ProductListing, WishList, Login, Signup, Logout } from "./Components";
+import { PrivateRoute } from "./PrivateRote";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useAuth } from "./Contexts"
 
@@ -22,8 +23,8 @@ export function App(){
             </div>
             <Routes>
                 <Route path="/" element={<ProductListing />} />
-                <Route path="/cart" element={<Cart />} />
-                <Route path="/wishlist" element={<WishList />} />
+                <PrivateRoute path="/cart" element={<Cart />} />
+                <PrivateRoute path="/wishlist" element={<WishList />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/logout" element={<Logout />} />
