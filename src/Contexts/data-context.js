@@ -40,7 +40,7 @@ export function DataProvider({children}) {
         ]),
         color: faker.commerce.color()
     }));
-
+    console.log("data", data)
     function manipulateCart( state, {manipulation, item}){
         switch(manipulation){
 
@@ -144,7 +144,8 @@ export function DataProvider({children}) {
             itemsInWishList: []
         }
     );
-
+    
+    console.log("Dataa", data)
     return ( 
         <DataContext.Provider value = {
             {

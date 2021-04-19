@@ -1,4 +1,4 @@
-import { Cart, ProductListing, WishList, Login, Signup, Logout, ProductDetails } from "./Pages";
+import { Cart, ProductListing, WishList, Login, Signup, Logout, ProductDetails, TestAPI } from "./Pages";
 import { PrivateRoute } from "./PrivateRote";
 import { Routes, Route, Link } from "react-router-dom";
 import { useAuth } from "./Contexts"
@@ -16,6 +16,7 @@ export function App(){
                     <li><Link to="/">Products</Link></li>
                     <li><Link to="/cart">Cart</Link></li>
                     <li><Link to="/wishlist">WishList</Link></li>
+                    <li><Link to="/test">Test</Link></li>
                     {!currentUser && <li><Link to="/login">Login</Link></li>}
                     {currentUser && <li><Link to="/logout">Hi {currentUser.name}</Link></li>}
                     </ul>
@@ -29,6 +30,7 @@ export function App(){
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/products/:productId" element={<ProductDetails />} />
+                <Route path="/test" element={<TestAPI />} />
             </Routes>
         </>
     )
