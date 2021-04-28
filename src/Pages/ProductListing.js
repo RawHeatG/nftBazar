@@ -1,11 +1,13 @@
-import React from "react";
+// import { useState, useEffect } from "react";
 import { useData } from "../Contexts";
-import { ProductCard } from "../Components";
+import { ProductCard, Loader } from "../Components";
 import "../styles.css";
 
 export function ProductListing() {
+  console.log("Product Listing called")
 
-  const { showInventoryAll, showFastDeliveryOnly, sortBy , dispatch, data } = useData();
+  const { showInventoryAll, showFastDeliveryOnly, sortBy , dispatch, data, loading } = useData();
+  console.log("Loading: ", loading)
 
   function getSortedData(productList, sortBy) {
     if (sortBy && sortBy === "PRICE_HIGH_TO_LOW") {
@@ -31,63 +33,69 @@ export function ProductListing() {
 
   const sortedData = getSortedData(data, sortBy);
   const filteredData = getFilteredData(sortedData, {
-    showFastDeliveryOnly,
-    showInventoryAll
+  showFastDeliveryOnly,
+  showInventoryAll
   });
+  
   return (
     <>
-      <fieldset>
-        <legend>Sort By</legend>
-        <label>
-          <input
-            type="radio"
-            name="sort"
-            onChange={() =>
-              dispatch({ type: "SORT", payload: "PRICE_HIGH_TO_LOW" })
-            }
-            checked={sortBy && sortBy === "PRICE_HIGH_TO_LOW"}
-          ></input>{" "}
-          Price - High to Low
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="sort"
-            onChange={() =>
-              dispatch({ type: "SORT", payload: "PRICE_LOW_TO_HIGH" })
-            }
-            checked={sortBy && sortBy === "PRICE_LOW_TO_HIGH"}
-          ></input>{" "}
-          Price - Low to High
-        </label>
-      </fieldset>
+      {loading && <Loader />}
+      {!loading && (
+        <>
+        <fieldset>
+          <legend>Sort By</legend>
+          <label>
+            <input
+              type="radio"
+              name="sort"
+              onChange={() =>
+                dispatch({ type: "SORT", payload: "PRICE_HIGH_TO_LOW" })
+              }
+              checked={sortBy && sortBy === "PRICE_HIGH_TO_LOW"}
+            ></input>{" "}
+            Price - High to Low
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="sort"
+              onChange={() =>
+                dispatch({ type: "SORT", payload: "PRICE_LOW_TO_HIGH" })
+              }
+              checked={sortBy && sortBy === "PRICE_LOW_TO_HIGH"}
+            ></input>{" "}
+            Price - Low to High
+          </label>
+        </fieldset>
 
-      <fieldset style={{ marginTop: "1rem" }}>
-        <legend> Filters </legend>
-        <label>
-          <input
-            type="checkbox"
-            checked={showInventoryAll}
-            onChange={() => dispatch({ type: "TOGGLE_INVENTORY" })}
-          />
-          Include Out of Stock
-        </label>
+        <fieldset style={{ marginTop: "1rem" }}>
+          <legend> Filters </legend>
+          <label>
+            <input
+              type="checkbox"
+              checked={showInventoryAll}
+              onChange={() => dispatch({ type: "TOGGLE_INVENTORY" })}
+            />
+            Include Out of Stock
+          </label>
 
-        <label>
-          <input
-            type="checkbox"
-            checked={showFastDeliveryOnly}
-            onChange={() => dispatch({ type: "TOGGLE_DELIVERY" })}
-          />
-          Fast Delivery Only
-        </label>
-      </fieldset>
+          <label>
+            <input
+              type="checkbox"
+              checked={showFastDeliveryOnly}
+              onChange={() => dispatch({ type: "TOGGLE_DELIVERY" })}
+            />
+            Fast Delivery Only
+          </label>
+        </fieldset>
 
-      <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
-        {filteredData.map(
-          (item) => (<ProductCard product={item}/>)
-        )}
-      </div>
-    </>
+        <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
+          {filteredData.map(
+            (item) => (<ProductCard product={item}/>)
+          )}
+        </div>
+      </>
+      )}
+  </>
   );
 }

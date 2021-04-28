@@ -10,7 +10,7 @@ export function Logout() {
 
     return(
         <>
-            <button class="btn btn-alert" onClick={logoutHandler}>Logout :(</button>
+            <button class="btn btn-error" onClick={logoutHandler}>Logout :(</button>
         </>
     )
 }

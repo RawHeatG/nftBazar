@@ -1,46 +1,63 @@
-import {useContext, createContext, useReducer} from "react";
-import faker from "faker";
+import {useContext, createContext, useReducer, useEffect, useState } from "react";
+import axios from "axios";
 
 const DataContext = createContext();
 
 export function DataProvider({children}) {
 
+    console.log("Data context called")
+    
+    const [ data, setData ] = useState([]);
+    const [ loading, setLoading ] = useState(true);
+  
+    useEffect(() => {
+        (async function () {
+            
+            console.log("data called")
+            const response = await axios('https://nftBaazarAPI.rawheatg.repl.co/test');
+            console.log("Data from useEfect: ", data)
+            setData(response.data.data);
+            
+            setLoading(false);
+            console.log("Data from useEfect: ", data)
+        }) ()
+    }, []);
+    
     //data population using faker
-    faker.seed(123);
+    // faker.seed(123);
 
-    const data = [...Array(50)].map((item) => ({
-        quantity: 0,
-        id: faker.random.uuid(),
-        name: faker.commerce.productName(),
-        image: faker.random.image(),
-        price: faker.commerce.price(),
-        material: faker.commerce.productMaterial(),
-        brand: faker.lorem.word(),
-        inStock: faker.random.boolean(),
-        fastDelivery: faker.random.boolean(),
-        ratings: faker.random.arrayElement([1, 2, 3, 4, 5]),
-        offer: faker.random.arrayElement([
-            "Save 50",
-            "70% bonanza",
-            "Republic Day Sale"
-        ]),
-        idealFor: faker.random.arrayElement([
-            "Men",
-            "Women",
-            "Girl",
-            "Boy",
-            "Senior"
-        ]),
-        level: faker.random.arrayElement([
-            "beginner",
-            "amateur",
-            "intermediate",
-            "advanced",
-            "professional"
-        ]),
-        color: faker.commerce.color()
-    }));
-    console.log("data", data)
+    // const data = [...Array(50)].map((item) => ({
+    //     quantity: 0,
+    //     id: faker.random.uuid(),
+    //     name: faker.commerce.productName(),
+    //     image: faker.random.image(),
+    //     price: faker.commerce.price(),
+    //     material: faker.commerce.productMaterial(),
+    //     brand: faker.lorem.word(),
+    //     inStock: faker.random.boolean(),
+    //     fastDelivery: faker.random.boolean(),
+    //     ratings: faker.random.arrayElement([1, 2, 3, 4, 5]),
+    //     offer: faker.random.arrayElement([
+    //         "Save 50",
+    //         "70% bonanza",
+    //         "Republic Day Sale"
+    //     ]),
+    //     idealFor: faker.random.arrayElement([
+    //         "Men",
+    //         "Women",
+    //         "Girl",
+    //         "Boy",
+    //         "Senior"
+    //     ]),
+    //     level: faker.random.arrayElement([
+    //         "beginner",
+    //         "amateur",
+    //         "intermediate",
+    //         "advanced",
+    //         "professional"
+    //     ]),
+    //     color: faker.commerce.color()
+    // }));
     function manipulateCart( state, {manipulation, item}){
         switch(manipulation){
 
@@ -144,8 +161,6 @@ export function DataProvider({children}) {
             itemsInWishList: []
         }
     );
-    
-    console.log("Dataa", data)
     return ( 
         <DataContext.Provider value = {
             {
@@ -153,9 +168,10 @@ export function DataProvider({children}) {
                 showFastDeliveryOnly,
                 sortBy,
                 dispatch,
-                data,
                 itemsInCart,
-                itemsInWishList
+                itemsInWishList,
+                data,
+                loading
             }
         }>
             {children}

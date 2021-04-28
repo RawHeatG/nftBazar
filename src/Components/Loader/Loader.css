@@ -1,0 +1,36 @@
+.loader{
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.loader-ball {
+    height: 1.5rem;
+    width: 1.5rem;
+    background-color: #d81159;
+    border-radius: 50%;
+    margin: 0 0.5rem;
+    animation: loader 500ms cubic-bezier(0.19, 0.57, 0.3, 0.98) infinite alternate;
+}
+
+.loader-ball:nth-child(2) {
+    opacity: 0.8;
+    animation-delay: 0.1s;
+}
+.loader-ball:nth-child(3) {
+    opacity: 0.6;
+    animation-delay: 0.2s;
+}
+.loader-ball:nth-child(4) {
+    opacity: 0.4;
+    animation-delay: 0.3s;
+}
+
+@keyframes loader {
+    from{ transform: translateY(0) }
+    to { transform: translateY(-10vh) }
+}
