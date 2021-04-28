@@ -1,5 +1,4 @@
-import { useData } from "../Contexts";
-import "../styles.css";
+import { useData } from "../../Contexts";
 import { Link } from "react-router-dom";
 
 export function WishListCard({product}) {

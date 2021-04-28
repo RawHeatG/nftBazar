@@ -1,6 +1,5 @@
 import { useData } from "../Contexts";
 import { CartCard } from "../Components";
-import "../styles.css";
 
 export function Cart() {
     const{ itemsInCart } = useData();

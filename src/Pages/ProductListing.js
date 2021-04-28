@@ -1,7 +1,5 @@
-// import { useState, useEffect } from "react";
 import { useData } from "../Contexts";
 import { ProductCard, Loader } from "../Components";
-import "../styles.css";
 
 export function ProductListing() {
   console.log("Product Listing called")

@@ -1,6 +1,4 @@
-import { useData } from "../Contexts";
-import "../styles.css";
-
+import { useData } from "../../Contexts";
 
 export function CartCard({product}) {
     let {

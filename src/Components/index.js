@@ -1,4 +1,4 @@
-export { ProductCard } from "./ProductCard";
-export { CartCard } from "./CartCard";
-export { WishListCard } from "./WishListCard";
+export { ProductCard } from "./Cards/ProductCard";
+export { CartCard } from "./Cards/CartCard";
+export { WishListCard } from "./Cards/WishListCard";
 export { Loader } from "./Loader/Loder"

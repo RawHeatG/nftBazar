@@ -1,6 +1,5 @@
 import { useData } from "../Contexts";
 import { WishListCard } from "../Components";
-import "../styles.css";
 
 export function WishList() {
     const{ itemsInWishList } = useData();
