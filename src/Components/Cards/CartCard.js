@@ -6,11 +6,15 @@ export function CartCard({product}) {
         name,
         image,
         price,
-        productName,
+        material,
+        brand,
         inStock,
-        level,
         fastDelivery,
-        quantity
+        ratings,
+        offer,
+        idealFor,
+        level,
+        color
       } = product;
     const { dispatch, itemsInCart, itemsInWishList } = useData();
     const WhichButtonToShow = () => {

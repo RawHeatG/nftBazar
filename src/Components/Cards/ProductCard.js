@@ -7,11 +7,15 @@ export function ProductCard({product}) {
         name,
         image,
         price,
-        productName,
+        material,
+        brand,
         inStock,
-        level,
         fastDelivery,
-        quantity
+        ratings,
+        offer,
+        idealFor,
+        level,
+        color
       } = product;
     const { dispatch, itemsInCart, itemsInWishList } = useData();
     const CartButtons = () => {
@@ -45,7 +49,7 @@ export function ProductCard({product}) {
     return(
         <>
         <div key={id} class="card">
-            <img class="card-img" width="100%" height="auto" src={image} alt={productName} />
+            <img class="card-img" width="100%" height="auto" src={image} alt={name} />
             <div class="card-content">
                 <h2 class="card-heading">{name}</h2>
                 <div class="price">
