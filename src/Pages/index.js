@@ -6,3 +6,4 @@ export { Signup } from "./Signup";
 export { Logout } from "./Logout";
 export { ProductDetails } from "./ProductDetails/ProductDetails";
 export { TestAPI } from "./TestAPI";
+export { Home } from "./Home/Home";

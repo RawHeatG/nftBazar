@@ -87,7 +87,7 @@ export function ProductListing() {
           </label>
         </fieldset>
 
-        <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
+        <div className="App" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", rowGap: "2rem" }}>
           {filteredData.map(
             (item) => (<ProductCard product={item}/>)
           )}
