@@ -27,6 +27,16 @@
   top: 0;
 } 
 
+.nav-menu .MuiSvgIcon-root{
+  font-size: 2rem;
+  transition: 400ms ease-out;
+}
+
+.nav-menu li :hover {
+  font-size: 3rem;
+  color: black;
+}
+
 .main {
   grid-area: main;
   margin-top: 12vh;

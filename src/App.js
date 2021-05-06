@@ -5,7 +5,6 @@ import {
   WishList,
   Login,
   Signup,
-  Logout,
   ProductDetails,
   TestAPI,
 } from "./Pages";
@@ -15,6 +14,9 @@ import { useAuth } from "./Contexts";
 import "./styles.css";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import HomeIcon from "@material-ui/icons/Home";
+import AppsIcon from "@material-ui/icons/Apps";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 export function App() {
   const { currentUser } = useAuth();
@@ -30,10 +32,14 @@ export function App() {
         <div className="nav-right">
           <ul className="nav-menu">
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/">
+                <HomeIcon />
+              </Link>
             </li>
             <li>
-              <Link to="/products">Products</Link>
+              <Link to="/products">
+                <AppsIcon />
+              </Link>
             </li>
             <li>
               <Link to="/cart">
@@ -47,12 +53,14 @@ export function App() {
             </li>
             {!currentUser && (
               <li>
-                <Link to="/login">Login</Link>
+                <Link to="/login">
+                  <AccountCircleIcon />
+                </Link>
               </li>
             )}
             {currentUser && (
               <li>
-                <Link to="/logout">Hi {currentUser.name}</Link>
+                <Link to="/login">Hi {currentUser.name}</Link>
               </li>
             )}
           </ul>
@@ -66,7 +74,6 @@ export function App() {
           <PrivateRoute path="/wishlist" element={<WishList />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/logout" element={<Logout />} />
           <Route path="/products/:productId" element={<ProductDetails />} />
           <Route path="/test" element={<TestAPI />} />
         </Routes>
