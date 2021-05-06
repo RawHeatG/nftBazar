@@ -2,6 +2,7 @@
 
 *{
   font-family: 'Quicksand', sans-serif;
+  margin: 0;
 }
 .App {
   text-align: center;
@@ -11,3 +12,24 @@
   text-decoration: inherit;
   color: inherit;
 }
+
+/* .canvas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 12vh 1fr;
+  grid-template-areas:  "nav nav",
+                        "main main";
+} */
+
+.nav {
+  grid-area: nav;
+  min-height: 10vh;
+  top: 0;
+} 
+
+.main {
+  grid-area: main;
+  margin-top: 12vh;
+  width: 100vw;
+}
+

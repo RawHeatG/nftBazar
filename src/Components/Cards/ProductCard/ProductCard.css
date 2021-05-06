@@ -1,6 +1,26 @@
-/* .card {
-    width: 20vw;
-    max-width: 400px;
-    min-width: 300px;
-    margin-bottom: 5rem;
-} */
+.card {
+    max-width: 500px;
+    min-width: 200px;
+    cursor: pointer;
+    height: auto;
+}
+
+.card-content {
+    border: none;
+}
+
+.card :hover {
+    box-shadow: 0.25rem 0.25rem 0.5rem rbga(0,0,0,0.8);
+}
+
+.card__buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.card__buttons button {
+    margin: 0.25rem 0;
+    width: 100%;
+    padding: 0.2rem;
+}

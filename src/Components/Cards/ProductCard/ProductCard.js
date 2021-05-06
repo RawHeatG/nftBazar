@@ -84,32 +84,33 @@ export function ProductCard({ product }) {
   };
   return (
     <div key={id} className="card">
-      <img
-        className="card-img"
-        width="100%"
-        height="auto"
-        src={image}
-        alt={name}
-      />
-      <div className="card-content">
-        <h2 className="card-heading">{name}</h2>
-        <div className="price">
-          <span className="card-price">₹ {price}</span>
-          <s>1000</s>
+      <Link to={`/products/${id}`} className="link">
+        <img
+          className="card-img"
+          width="100%"
+          height="auto"
+          src={image}
+          alt={name}
+        />
+        <div className="card-content">
+          <h3 className="card-heading">{name}</h3>
+          <div className="price">
+            <span className="card-price">₹ {price}</span>
+            <s>1000</s>
+          </div>
+          {inStock && <div> In Stock </div>}
+          {!inStock && <div> Out of Stock </div>}
+          {fastDelivery ? (
+            <div> Fast Delivery </div>
+          ) : (
+            <div> 3 days minimum </div>
+          )}
+          {/* <div className="card__buttons">
+            {WishListButtons()}
+            {CartButtons()}
+          </div> */}
         </div>
-        {inStock && <div> In Stock </div>}
-        {!inStock && <div> Out of Stock </div>}
-        {fastDelivery ? (
-          <div> Fast Delivery </div>
-        ) : (
-          <div> 3 days minimum </div>
-        )}
-        {WishListButtons()}
-        {CartButtons()}
-        <Link to={`/products/${id}`}>
-          <button className="btn btn-secondary">View Details</button>
-        </Link>
-      </div>
+      </Link>
     </div>
   );
 }
