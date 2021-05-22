@@ -53,7 +53,7 @@ export function WishListCard({ product }) {
           width="100%"
           height="auto"
           src={image}
-          alt={productName}
+          alt={name}
         />
         <div className="card-content">
           <h2 className="card-heading">{name}</h2>

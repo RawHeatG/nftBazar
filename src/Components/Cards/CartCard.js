@@ -15,12 +15,19 @@ export function CartCard({ product }) {
     idealFor,
     level,
     color,
+    quantity,
   } = product;
   const { dispatch, itemsInCart, itemsInWishList } = useData();
   const WhichButtonToShow = () => {
     if (itemsInCart.find((item) => item.id === id)) {
       return (
-        <div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           {quantity > 1 ? (
             <button
               className="btn btn-tertiary"
@@ -84,7 +91,7 @@ export function CartCard({ product }) {
         width="100%"
         height="auto"
         src={image}
-        alt={productName}
+        alt={name}
       />
       <div className="card-content">
         <h2 className="card-heading">{name}</h2>
