@@ -40,6 +40,9 @@
 .main {
   grid-area: main;
   margin-top: 12vh;
-  width: 100vw;
+}
+
+.card{
+  width: auto;
 }
 
