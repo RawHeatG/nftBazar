@@ -1,4 +1,4 @@
-export { Cart } from "./Cart";
+export { Cart } from "./Cart/Cart";
 export { ProductListing } from "./ProductListing/ProductListing";
 export { WishList } from "./WishList";
 export { Login } from "./Login/Login";
