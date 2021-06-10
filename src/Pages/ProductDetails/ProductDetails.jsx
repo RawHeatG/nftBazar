@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useData } from "../../Contexts";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./ProductDetails.css";
 
 export function ProductDetails() {
