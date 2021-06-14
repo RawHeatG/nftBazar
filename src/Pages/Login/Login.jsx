@@ -1,5 +1,5 @@
 import { useAuth } from "../../Contexts";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ImageOutlined } from "@material-ui/icons";
 import "./Login.css";
@@ -7,8 +7,25 @@ import "./Login.css";
 export function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [passwordStyle, setPasswordStyle] = useState({});
 
   const { currentUser, loginUserWithCredentials, logoutUser } = useAuth();
+
+  function validatePassword(password) {
+    const passwordRegex = /^[\w!@#\$%\^\&*\)\(+=._-]{6,}$/
+    return passwordRegex.test(password)
+  }
+
+  useEffect(()=>{
+    if(password){
+      setPasswordStyle(validatePassword(password) ?
+        { backgroundColor: "#8ac926", color: "white" }
+       :
+        { backgroundColor: "#ff595e", color: "white" })
+      console.log(passwordStyle)
+    }
+    else{setPasswordStyle({})}
+  },[password])
 
   const loginHandler = () => {
     loginUserWithCredentials(username, password);
@@ -34,12 +51,13 @@ export function Login() {
           <div className="form-wrapper">
             <h1>NFT Baazar</h1>
             <input
-              placeholder="Enter your username..."
+              placeholder="Username..."
               onChange={(event) => setUsername(event.target.value)}
             />
             <input
+              style={{...passwordStyle}}
               type="password"
-              placeholder="Password..."
+              placeholder="Password"
               onChange={(event) => setPassword(event.target.value)}
             />
             <button className="btn btn-primary" onClick={loginHandler}>

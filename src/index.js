@@ -9,11 +9,11 @@ const rootElement = document.getElementById("root");
 ReactDOM.render(
   <StrictMode>
     <Router>
-      <DataProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <DataProvider>
           <App />
-        </AuthProvider>
-      </DataProvider>
+        </DataProvider>
+      </AuthProvider>
     </Router>
   </StrictMode>,
   rootElement

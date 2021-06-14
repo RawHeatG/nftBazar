@@ -10,7 +10,7 @@ export const Navbar = () => {
     const { currentUser } = useAuth();
     return (
         <div className="nav">
-        <div class="logo">
+        <div className="logo">
           <Link to="/" className="link">
             <h1>NFT Baazar</h1>
           </Link>
