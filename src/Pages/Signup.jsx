@@ -11,6 +11,14 @@ export function Signup() {
   const [emailStyle, setEmailStyle] = useState({});
   const [passwordStyle, setPasswordStyle] = useState({});
 
+  const { signupUserWithCredentials } = useAuth();
+
+  const signupHandler = () => {
+    signupUserWithCredentials(name, username, email, password);
+  };
+
+  
+
   function validateEmail(email) {
     const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return emailRegex.test(String(email).toLowerCase());
@@ -43,11 +51,7 @@ export function Signup() {
     else{setPasswordStyle({})}
   },[password])
 
-  const { signupUserWithCredentials } = useAuth();
-
-  const signupHandler = () => {
-    signupUserWithCredentials(name, username, password);
-  };
+  
   console.log(emailStyle)
   return (
     <div className="login">
@@ -80,7 +84,7 @@ export function Signup() {
           </button>
           <p>
             Already have an accont?{" "}
-            <Link to="/login">
+            <Link className="link" to="/login">
               <span>Log In</span>
             </Link>
           </p>

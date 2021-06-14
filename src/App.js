@@ -11,7 +11,7 @@ import {
 import { Navbar } from "./Components";
 import { PrivateRoute } from "./PrivateRote";
 import { Routes, Route, Link } from "react-router-dom";
-import "./styles.css";
+import "./index.css";
 
 export function App() {
   return (

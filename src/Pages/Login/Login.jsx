@@ -1,6 +1,6 @@
 import { useAuth } from "../../Contexts";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { ImageOutlined } from "@material-ui/icons";
 import "./Login.css";
 
@@ -10,6 +10,15 @@ export function Login() {
   const [passwordStyle, setPasswordStyle] = useState({});
 
   const { currentUser, loginUserWithCredentials, logoutUser } = useAuth();
+
+  const navigateToSignup = () => {
+    return(
+      <>
+        <Navigate replace to="/signup" />
+      </>
+    )
+    
+  }
 
   function validatePassword(password) {
     const passwordRegex = /^[\w!@#\$%\^\&*\)\(+=._-]{6,}$/
@@ -34,7 +43,7 @@ export function Login() {
   const logoutHandler = () => {
     logoutUser();
   };
-
+  console.log(currentUser)
   return (
     <div className="login">
       {currentUser && (
@@ -64,8 +73,8 @@ export function Login() {
               Log In
             </button>
             <p>
-              Don't have an accont?{" "}
-              <Link to="/signup">
+              Don't have an accont?{" "}     
+              <Link className="link" to="/signup">
                 <span>Sign Up</span>
               </Link>
             </p>
