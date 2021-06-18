@@ -7,18 +7,33 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
+  const [errorOccured, setErrorOccured] = useState(false);
 
   const { state } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     try {
-      const a = JSON.parse(localStorage?.getItem("nftLogin"));
-      setCurrentUser(a);
+      const user = JSON.parse(localStorage?.getItem("nftbaazarLogin"));
+      setCurrentUser(user);
     } catch (error) {
       console.error(error);
+      setErrorOccured(true);
     }
   }, []);
+
+  console.log("Token: ", currentUser?.token);
+
+  currentUser?.token
+    ? (axios.defaults.headers.common["Authorization"] = currentUser?.token)
+    : delete axios.defaults.headers.common["Authorization"];
+
+  const setUserandNavigate = (response) => {
+    const user = response.data.data;
+    localStorage?.setItem("nftbaazarLogin", JSON.stringify(user));
+    setCurrentUser(user);
+    state?.from ? navigate(state.from) : navigate("/");
+  };
 
   async function loginUserWithCredentials(username, password) {
     try {
@@ -27,15 +42,12 @@ export function AuthProvider({ children }) {
         "https://nftBaazarAPI.rawheatg.repl.co/login",
         { user }
       );
-      if (response.data.success) {
-        const user = response.data.data;
-        console.log(user);
-        localStorage?.setItem("nftLogin", JSON.stringify(user));
-        setCurrentUser(user);
-        navigate(state.from);
-      }
+      response.data.success
+        ? setUserandNavigate(response)
+        : setErrorOccured(true);
     } catch (error) {
       console.error("Error occured during login", error);
+      setErrorOccured(true);
     }
   }
 
@@ -51,20 +63,23 @@ export function AuthProvider({ children }) {
         "https://nftBaazarAPI.rawheatg.repl.co/signup",
         { user }
       );
-      if (response.data.success) {
-        const user = response.data.data;
-        localStorage?.setItem("nftLogin", JSON.stringify(user));
-        setCurrentUser(user);
-        navigate("/");
-      }
+      response.data.success
+        ? setUserandNavigate(response)
+        : setErrorOccured(true);
     } catch (error) {
       console.error("Error occured during signup", error);
+      setErrorOccured(true);
     }
   }
 
   function logoutUser() {
-    localStorage.removeItem("nftLogin");
-    setCurrentUser();
+    try {
+      localStorage.removeItem("nftbaazarLogin");
+      setCurrentUser();
+    } catch (err) {
+      console.error("Error while logging out", err);
+      setErrorOccured(true);
+    }
   }
 
   return (
@@ -74,6 +89,7 @@ export function AuthProvider({ children }) {
         loginUserWithCredentials,
         signupUserWithCredentials,
         logoutUser,
+        errorOccured,
       }}
     >
       {children}

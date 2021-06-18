@@ -52,14 +52,9 @@ export function ProductDetails() {
       return (
         <button
           class="btn btn-tertiary"
-          onClick={() =>
-            dispatch({
-              type: "MANIPULATE_WISHLIST",
-              payload: { manipulation: "REMOVE_FROM_WISHLIST", item: product },
-            })
-          }
+          onClick={() => navigate("/wishlist")}
         >
-          Remove from Wishlist
+          Go to Wishlist
         </button>
       );
     }

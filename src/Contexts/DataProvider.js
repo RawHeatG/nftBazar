@@ -10,8 +10,6 @@ import axios from "axios";
 const DataContext = createContext();
 
 export function DataProvider({ children }) {
-  console.log("Data context called");
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -19,13 +17,12 @@ export function DataProvider({ children }) {
     (async function () {
       console.log("data called");
       const response = await axios(
-        "https://nftBaazarAPI.rawheatg.repl.co/test"
+        "https://nftBaazarAPI.rawheatg.repl.co/product"
       );
-      console.log("Data from useEfect: ", data);
-      setData(response.data.data);
+      console.log(response.data.data);
 
+      setData(response.data.data);
       setLoading(false);
-      console.log("Data from useEfect: ", data);
     })();
   }, []);
 
