@@ -51,7 +51,7 @@ export function ProductDetails() {
     if (itemsInWishList.find((item) => item.id === id)) {
       return (
         <button
-          class="btn btn-tertiary"
+          class="btn btn-tertiary interactions-button-wishlist"
           onClick={() => navigate("/wishlist")}
         >
           Go to Wishlist
@@ -60,7 +60,7 @@ export function ProductDetails() {
     }
     return (
       <button
-        class="btn btn-tertiary"
+        class="btn btn-tertiary interactions-button-wishlist"
         onClick={() =>
           dispatch({
             type: "MANIPULATE_WISHLIST",

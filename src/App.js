@@ -6,11 +6,10 @@ import {
   Login,
   Signup,
   ProductDetails,
-  TestAPI,
 } from "./Pages";
 import { Navbar } from "./Components";
 import { PrivateRoute } from "./PrivateRote";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import "./index.css";
 
 export function App() {
@@ -26,7 +25,6 @@ export function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/products/:productId" element={<ProductDetails />} />
-          <Route path="/test" element={<TestAPI />} />
         </Routes>
       </div>
     </div>
