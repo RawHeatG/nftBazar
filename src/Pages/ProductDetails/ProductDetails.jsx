@@ -3,10 +3,11 @@ import { useData } from "../../Contexts";
 import { useNavigate } from "react-router-dom";
 import "./ProductDetails.css";
 
+
 export function ProductDetails() {
   const navigate = useNavigate();
   const { productId } = useParams();
-  const { data, itemsInCart, itemsInWishList, dispatch } = useData();
+  const { data, itemsInCart, itemsInWishList, dispatch, wishlistHandler} = useData();
   const product = data.find((item) => item.id === productId);
   const {
     id,
@@ -25,22 +26,21 @@ export function ProductDetails() {
   } = product;
 
   const CartButtons = () => {
-    if (itemsInCart.find((item) => item.id === id)) {
+    if (itemsInCart?.find((item) => item.id === id)) {
       return (
-        <button class="btn btn-primary interactions-button-cart" onClick={() => navigate("/cart")}>
+        <button className="btn btn-primary interactions-button-cart" onClick={() => navigate("/cart")}>
           Go To Cart
         </button>
       );
     }
     return (
       <button
-        class="btn btn-primary interactions-button-cart"
-        onClick={() =>
+        className="btn btn-primary interactions-button-cart"
+        onClick={() => 
           dispatch({
-            type: "MANIPULATE_CART",
-            payload: { manipulation: "ADD_TO_CART", item: product },
-          })
-        }
+                    type: "MANIPULATE_CART",
+                    payload: { manipulation: "ADD_TO_CART", item: product },
+                  })}
       >
         Add To Cart
       </button>
@@ -48,10 +48,10 @@ export function ProductDetails() {
   };
 
   const WishListButtons = () => {
-    if (itemsInWishList.find((item) => item.id === id)) {
+    if (itemsInWishList?.find((item) => item.id === id)) {
       return (
         <button
-          class="btn btn-tertiary interactions-button-wishlist"
+          className="btn btn-tertiary interactions-button-wishlist"
           onClick={() => navigate("/wishlist")}
         >
           Go to Wishlist
@@ -60,13 +60,16 @@ export function ProductDetails() {
     }
     return (
       <button
-        class="btn btn-tertiary interactions-button-wishlist"
-        onClick={() =>
-          dispatch({
-            type: "MANIPULATE_WISHLIST",
-            payload: { manipulation: "ADD_TO_WISHLIST", item: product },
-          })
-        }
+        className="btn btn-tertiary interactions-button-wishlist"
+        onClick={() => 
+          {console.log("In ProductDetial, Dispatch called");
+          wishlistHandler(product)
+            // dispatch({
+            //         type: "MANIPULATE_WISHLIST",
+            //         payload: { manipulation: "ADD_TO_WISHLIST", item: product },
+            //       }) 
+                }
+                }
       >
         Add to WishList
       </button>
@@ -76,7 +79,7 @@ export function ProductDetails() {
   return (
     <>
       <div className="product-details">
-        <div class="interactions">
+        <div className="interactions">
           <img src={image} alt={name} />
           <div className="interactions-button">
             <WishListButtons />
@@ -92,7 +95,7 @@ export function ProductDetails() {
           <div>{ratings}⭐</div>
           <h2>₹ {price}</h2>
           {fastDelivery && (
-            <div class="delivery">Get it delivered in by tommorow!</div>
+            <div className="delivery">Get it delivered in by tommorow!</div>
           )}
           {!fastDelivery && <div>Delivered within 3 days</div>}
           <div className="offer">{offer}</div>

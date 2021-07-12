@@ -1,7 +1,7 @@
-import { useAuth } from "../Contexts";
+import { useAuth } from "../../Contexts";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "./Login/Login.css";
+import "./Signup.css";
 
 export function Signup() {
   const [name, setName] = useState();
@@ -17,42 +17,44 @@ export function Signup() {
     signupUserWithCredentials(name, username, email, password);
   };
 
-  
-
   function validateEmail(email) {
-    const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const emailRegex =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return emailRegex.test(String(email).toLowerCase());
   }
 
   function validatePassword(password) {
-    const passwordRegex = /^[\w!@#\$%\^\&*\)\(+=._-]{6,}$/
-    return passwordRegex.test(password)
+    const passwordRegex = /^[\w!@#\$%\^\&*\)\(+=._-]{6,}$/;
+    return passwordRegex.test(password);
   }
 
-  useEffect(()=>{
-    if(email){
-      setEmailStyle(validateEmail(email) ?
-        { backgroundColor: "#8ac926", color: "white" }
-       :
-        { backgroundColor: "#ff595e", color: "white" })
-      console.log(emailStyle)
+  useEffect(() => {
+    if (email) {
+      setEmailStyle(
+        validateEmail(email)
+          ? { backgroundColor: "#8ac926", color: "white" }
+          : { backgroundColor: "#ff595e", color: "white" }
+      );
+      console.log(emailStyle);
+    } else {
+      setEmailStyle({});
     }
-    else{setEmailStyle({})}
-  },[email])
+  }, [email]);
 
-  useEffect(()=>{
-    if(password){
-      setPasswordStyle(validatePassword(password) ?
-        { backgroundColor: "#8ac926", color: "white" }
-       :
-        { backgroundColor: "#ff595e", color: "white" })
-      console.log(passwordStyle)
+  useEffect(() => {
+    if (password) {
+      setPasswordStyle(
+        validatePassword(password)
+          ? { backgroundColor: "#8ac926", color: "white" }
+          : { backgroundColor: "#ff595e", color: "white" }
+      );
+      console.log(passwordStyle);
+    } else {
+      setPasswordStyle({});
     }
-    else{setPasswordStyle({})}
-  },[password])
+  }, [password]);
 
-  
-  console.log(emailStyle)
+  console.log(emailStyle);
   return (
     <div className="login">
       <div className="form">
@@ -67,13 +69,13 @@ export function Signup() {
             onChange={(event) => setUsername(event.target.value)}
           />
           <input
-            style={{...emailStyle}}
+            style={{ ...emailStyle }}
             placeholder="Email"
             type="email"
             onChange={(event) => setEmail(event.target.value)}
           />
           <input
-            style={{...passwordStyle}}
+            style={{ ...passwordStyle }}
             type="password"
             placeholder="Password*"
             onChange={(event) => setPassword(event.target.value)}

@@ -7,7 +7,7 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
-  const [errorOccured, setErrorOccured] = useState(false);
+  const [authError, setAuthError] = useState(false);
 
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -18,14 +18,16 @@ export function AuthProvider({ children }) {
       setCurrentUser(user);
     } catch (error) {
       console.error(error);
-      setErrorOccured(true);
+      setAuthError(true);
     }
   }, []);
 
   console.log("Token: ", currentUser?.token);
 
   currentUser?.token
-    ? (axios.defaults.headers.common["Authorization"] = currentUser?.token)
+    ? (axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${currentUser?.token}`)
     : delete axios.defaults.headers.common["Authorization"];
 
   const setUserandNavigate = (response) => {
@@ -42,12 +44,10 @@ export function AuthProvider({ children }) {
         "https://nftBaazarAPI.rawheatg.repl.co/login",
         { user }
       );
-      response.data.success
-        ? setUserandNavigate(response)
-        : setErrorOccured(true);
+      response.data.success ? setUserandNavigate(response) : setAuthError(true);
     } catch (error) {
       console.error("Error occured during login", error);
-      setErrorOccured(true);
+      setAuthError(true);
     }
   }
 
@@ -63,12 +63,10 @@ export function AuthProvider({ children }) {
         "https://nftBaazarAPI.rawheatg.repl.co/signup",
         { user }
       );
-      response.data.success
-        ? setUserandNavigate(response)
-        : setErrorOccured(true);
+      response.data.success ? setUserandNavigate(response) : setAuthError(true);
     } catch (error) {
       console.error("Error occured during signup", error);
-      setErrorOccured(true);
+      setAuthError(true);
     }
   }
 
@@ -78,7 +76,7 @@ export function AuthProvider({ children }) {
       setCurrentUser();
     } catch (err) {
       console.error("Error while logging out", err);
-      setErrorOccured(true);
+      setAuthError(true);
     }
   }
 
@@ -89,7 +87,7 @@ export function AuthProvider({ children }) {
         loginUserWithCredentials,
         signupUserWithCredentials,
         logoutUser,
-        errorOccured,
+        authError,
       }}
     >
       {children}

@@ -11,30 +11,23 @@ export function Login() {
 
   const { currentUser, loginUserWithCredentials, logoutUser } = useAuth();
 
-  const navigateToSignup = () => {
-    return(
-      <>
-        <Navigate replace to="/signup" />
-      </>
-    )
-    
-  }
-
   function validatePassword(password) {
-    const passwordRegex = /^[\w!@#\$%\^\&*\)\(+=._-]{6,}$/
-    return passwordRegex.test(password)
+    const passwordRegex = /^[\w!@#\$%\^\&*\)\(+=._-]{6,}$/;
+    return passwordRegex.test(password);
   }
 
-  useEffect(()=>{
-    if(password){
-      setPasswordStyle(validatePassword(password) ?
-        { backgroundColor: "#8ac926", color: "white" }
-       :
-        { backgroundColor: "#ff595e", color: "white" })
-      console.log(passwordStyle)
+  useEffect(() => {
+    if (password) {
+      setPasswordStyle(
+        validatePassword(password)
+          ? { backgroundColor: "#8ac926", color: "white" }
+          : { backgroundColor: "#ff595e", color: "white" }
+      );
+      console.log(passwordStyle);
+    } else {
+      setPasswordStyle({});
     }
-    else{setPasswordStyle({})}
-  },[password])
+  }, [password]);
 
   const loginHandler = () => {
     loginUserWithCredentials(username, password);
@@ -43,7 +36,7 @@ export function Login() {
   const logoutHandler = () => {
     logoutUser();
   };
-  console.log(currentUser)
+  console.log(currentUser);
   return (
     <div className="login">
       {currentUser && (
@@ -64,7 +57,7 @@ export function Login() {
               onChange={(event) => setUsername(event.target.value)}
             />
             <input
-              style={{...passwordStyle}}
+              style={{ ...passwordStyle }}
               type="password"
               placeholder="Password"
               onChange={(event) => setPassword(event.target.value)}
@@ -73,7 +66,7 @@ export function Login() {
               Log In
             </button>
             <p>
-              Don't have an accont?{" "}     
+              Don't have an accont?{" "}
               <Link className="link" to="/signup">
                 <span>Sign Up</span>
               </Link>
