@@ -34,8 +34,8 @@ export function CartCard({ product }) {
               className="btn btn-tertiary"
               onClick={() =>
                 dispatch({
-                  type: "MANIPULATE_CART",
-                  payload: { manipulation: "DECREASE", item: product },
+                  type: "DECREASE_QUANTITY",
+                  payload: product,
                 })
               }
             >
@@ -46,8 +46,8 @@ export function CartCard({ product }) {
               className="btn btn-tertiary"
               onClick={() =>
                 dispatch({
-                  type: "MANIPULATE_CART",
-                  payload: { manipulation: "REMOVE", item: product },
+                  type: "REMOVE_QUANTITY",
+                  payload: product,
                 })
               }
             >
@@ -60,8 +60,8 @@ export function CartCard({ product }) {
             className="btn btn-tertiary"
             onClick={() =>
               dispatch({
-                type: "MANIPULATE_CART",
-                payload: { manipulation: "INCREASE", item: product },
+                type: "INCREASE_QUANTITY",
+                payload: product,
               })
             }
           >
@@ -75,8 +75,8 @@ export function CartCard({ product }) {
         <button
           onClick={() =>
             dispatch({
-              type: "MANIPULATE_CART",
-              payload: { manipulation: "ADD_TO_CART", item: product },
+              type: "ADD_TO_CART",
+              payload: product,
             })
           }
         >
@@ -112,8 +112,8 @@ export function CartCard({ product }) {
             className="btn btn-tertiary"
             onClick={() =>
               dispatch({
-                type: "MANIPULATE_WISHLIST",
-                payload: { manipulation: "MOVE_TO_WISHLIST", item: product },
+                type: "MOVE_TO_WISHLIST",
+                payload: product,
               })
             }
           >

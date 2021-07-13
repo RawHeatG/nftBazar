@@ -34,8 +34,8 @@ export function WishListCard({ product }) {
           className="btn btn-primary"
           onClick={() =>
             dispatch({
-              type: "MANIPULATE_CART",
-              payload: { manipulation: "MOVE_TO_CART", item: product },
+              type: "MOVE_TO_CART",
+              payload: product,
             })
           }
         >
@@ -73,11 +73,8 @@ export function WishListCard({ product }) {
               className="btn btn-tertiary"
               onClick={() =>
                 dispatch({
-                  type: "MANIPULATE_WISHLIST",
-                  payload: {
-                    manipulation: "REMOVE_FROM_WISHLIST",
-                    item: product,
-                  },
+                  type: "REMOVE_FROM_WISHLIST",
+                  payload: product,
                 })
               }
             >

@@ -3,11 +3,10 @@ import { useData } from "../../Contexts";
 import { useNavigate } from "react-router-dom";
 import "./ProductDetails.css";
 
-
 export function ProductDetails() {
   const navigate = useNavigate();
   const { productId } = useParams();
-  const { data, itemsInCart, itemsInWishList, dispatch, wishlistHandler} = useData();
+  const { data, itemsInCart, itemsInWishList, dispatch } = useData();
   const product = data.find((item) => item.id === productId);
   const {
     id,
@@ -28,7 +27,10 @@ export function ProductDetails() {
   const CartButtons = () => {
     if (itemsInCart?.find((item) => item.id === id)) {
       return (
-        <button className="btn btn-primary interactions-button-cart" onClick={() => navigate("/cart")}>
+        <button
+          className="btn btn-primary interactions-button-cart"
+          onClick={() => navigate("/cart")}
+        >
           Go To Cart
         </button>
       );
@@ -36,11 +38,12 @@ export function ProductDetails() {
     return (
       <button
         className="btn btn-primary interactions-button-cart"
-        onClick={() => 
+        onClick={() =>
           dispatch({
-                    type: "MANIPULATE_CART",
-                    payload: { manipulation: "ADD_TO_CART", item: product },
-                  })}
+            type: "ADD_TO_CART",
+            payload: product,
+          })
+        }
       >
         Add To Cart
       </button>
@@ -61,15 +64,14 @@ export function ProductDetails() {
     return (
       <button
         className="btn btn-tertiary interactions-button-wishlist"
-        onClick={() => 
-          {console.log("In ProductDetial, Dispatch called");
-          wishlistHandler(product)
-            // dispatch({
-            //         type: "MANIPULATE_WISHLIST",
-            //         payload: { manipulation: "ADD_TO_WISHLIST", item: product },
-            //       }) 
-                }
-                }
+        onClick={() => {
+          console.log("In ProductDetial, Dispatch called");
+          // wishlistHandler(product);
+          dispatch({
+            type: "ADD_TO_WISHLIST",
+            payload: product,
+          });
+        }}
       >
         Add to WishList
       </button>

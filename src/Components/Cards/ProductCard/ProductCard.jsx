@@ -35,8 +35,8 @@ export function ProductCard({ product }) {
           className="btn btn-primary"
           onClick={() =>
             dispatch({
-              type: "MANIPULATE_CART",
-              payload: { manipulation: "ADD_TO_CART", item: product },
+              type: "ADD_TO_CART",
+              payload: product,
             })
           }
         >
@@ -53,11 +53,8 @@ export function ProductCard({ product }) {
             className="btn btn-tertiary"
             onClick={() =>
               dispatch({
-                type: "MANIPULATE_WISHLIST",
-                payload: {
-                  manipulation: "REMOVE_FROM_WISHLIST",
-                  item: product,
-                },
+                type: "REMOVE_FROM_WISHLIST",
+                payload: product,
               })
             }
           >
@@ -72,8 +69,8 @@ export function ProductCard({ product }) {
           className="btn btn-tertiary"
           onClick={() =>
             dispatch({
-              type: "MANIPULATE_WISHLIST",
-              payload: { manipulation: "ADD_TO_WISHLIST", item: product },
+              type: "ADD_TO_WISHLIST",
+              payload: product,
             })
           }
         >
@@ -83,30 +80,30 @@ export function ProductCard({ product }) {
     );
   };
   return (
-      <div key={id} className={`card ${inStock ? "" : "disabled-card"}`}>
-        <Link to={`/products/${id}`} className="link">
-          <img
-            className="card-img"
-            width="100%"
-            height="auto"
-            src={image}
-            alt={name}
-          />
-          <div className="card-content">
-            <h3 className="card-heading">{name}</h3>
-            <div className="price">
-              <span className="card-price">₹ {price}</span>
-              <s>1000</s>
-            </div>
-            {inStock && <div> In Stock </div>}
-            {!inStock && <div> Out of Stock </div>}
-            {fastDelivery ? (
-              <div> Fast Delivery </div>
-            ) : (
-              <div> 3 days minimum </div>
-            )}
+    <div key={id} className={`card ${inStock ? "" : "disabled-card"}`}>
+      <Link to={`/products/${id}`} className="link">
+        <img
+          className="card-img"
+          width="100%"
+          height="auto"
+          src={image}
+          alt={name}
+        />
+        <div className="card-content">
+          <h3 className="card-heading">{name}</h3>
+          <div className="price">
+            <span className="card-price">₹ {price}</span>
+            <s>1000</s>
           </div>
-        </Link>
-      </div>
+          {inStock && <div> In Stock </div>}
+          {!inStock && <div> Out of Stock </div>}
+          {fastDelivery ? (
+            <div> Fast Delivery </div>
+          ) : (
+            <div> 3 days minimum </div>
+          )}
+        </div>
+      </Link>
+    </div>
   );
 }
