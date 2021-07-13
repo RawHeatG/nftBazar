@@ -1,6 +1,9 @@
 import axios from "axios";
 import { API_URL } from "../utils/constants";
 
+// product services
+export const getAllProducts = async () => await axios(`${API_URL}/product`);
+
 // cart services
 export const getCart = async (userId) =>
   await axios(`${API_URL}/cart/${userId}`);
@@ -28,12 +31,14 @@ export const getWishlist = async (userId) =>
 export const addToWishlist = async (userId, productId) =>
   await axios.post(`${API_URL}/wishlist/${userId}`, { productId });
 
-export const removeFromWishlist = async (userId, productId) =>
-  await axios.delete(`${API_URL}/wishlist/${userId}`, { productId });
+export const removeFromWishlist = async (userId, productId) => {
+  console.log("yooooo remove", productId);
+  return await axios.delete(`${API_URL}/wishlist/${userId}/${productId}`);
+};
 
-export const moveToWishList = async (userId, productId) => {
+export const moveToWishlist = async (userId, productId) => {
   const response = await removeFromCart(userId, productId);
-  return response.status.success
+  return response.data.success
     ? await addToWishlist(userId, productId)
     : response;
 };

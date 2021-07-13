@@ -7,7 +7,7 @@ import {
 } from "react";
 import { dataReducer } from "../Reducers/DataReducer";
 import { useAuth } from "./index";
-import axios from "axios";
+import { getAllProducts, getCart, getWishlist } from "../services/dataServices";
 
 const DataContext = createContext();
 
@@ -19,9 +19,7 @@ export function DataProvider({ children }) {
   useEffect(() => {
     (async function () {
       console.log("data called");
-      const response = await axios(
-        "https://nftBaazarAPI.rawheatg.repl.co/product"
-      );
+      const response = await getAllProducts();
       console.log(response.data.data);
 
       setData(response.data.data);
@@ -47,6 +45,35 @@ export function DataProvider({ children }) {
     },
     dispatch,
   ] = useReducer(dataReducer, initialState);
+
+  useEffect(() => {
+    (async function () {
+      if (currentUser) {
+        try {
+          const cartResponse = await getCart(currentUser.userId);
+          cartResponse.data.success &&
+            dispatch({
+              type: "INITIALIZE_CART",
+              payload: cartResponse.data.data,
+            });
+          console.log(cartResponse);
+          const wishlistResponse = await getWishlist(currentUser.userId);
+          console.log(wishlistResponse);
+          wishlistResponse.data.success &&
+            dispatch({
+              type: "INITIALIZE_WISHLIST",
+              payload: wishlistResponse.data.data,
+            });
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    })();
+  }, [currentUser]);
+
+  console.log("data called");
+
+  console.log(itemsInCart, itemsInWishList);
   return (
     <DataContext.Provider
       value={{
@@ -58,8 +85,6 @@ export function DataProvider({ children }) {
         itemsInWishList,
         data,
         loading,
-        // cartHandler,
-        // wishlistHandler,
       }}
     >
       {children}

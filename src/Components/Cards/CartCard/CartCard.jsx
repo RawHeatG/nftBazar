@@ -5,7 +5,7 @@ import {
   addToCart,
   updateCartQuantity,
   removeFromCart,
-  moveToWishList,
+  moveToWishlist,
 } from "../../../services/dataServices";
 import axios from "axios";
 export function CartCard({ product }) {
@@ -142,7 +142,7 @@ export function CartCard({ product }) {
           <button
             className="btn btn-tertiary"
             onClick={async () => {
-              const response = await moveToWishList(
+              const response = await moveToWishlist(
                 currentUser.userId,
                 product._id
               );

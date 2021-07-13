@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { signup } from "../services/authServices";
+import { signup, login } from "../services/authServices";
 
 const AuthContext = createContext();
 
@@ -33,6 +33,7 @@ export function AuthProvider({ children }) {
 
   const setUserandNavigate = (response) => {
     const user = response.data.data;
+
     localStorage?.setItem("nftbaazarLogin", JSON.stringify(user));
     setCurrentUser(user);
     state?.from ? navigate(state.from) : navigate("/");
@@ -41,10 +42,7 @@ export function AuthProvider({ children }) {
   async function loginUserWithCredentials(username, password) {
     try {
       const user = { username: username, password: password };
-      const response = await axios.post(
-        "https://nftBaazarAPI.rawheatg.repl.co/login",
-        { user }
-      );
+      const response = await login(user);
       response.data.success ? setUserandNavigate(response) : setAuthError(true);
     } catch (error) {
       console.error("Error occured during login", error);
