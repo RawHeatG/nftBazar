@@ -1,5 +1,10 @@
-import { useData } from "../../Contexts";
+import { useData, useAuth } from "../../Contexts";
 import { Link } from "react-router-dom";
+import {
+  addToWishlist,
+  moveToCart,
+  removeFromWishlist,
+} from "../../services/dataServices";
 
 export function WishListCard({ product }) {
   let {
@@ -18,6 +23,7 @@ export function WishListCard({ product }) {
     color,
   } = product;
   const { dispatch, itemsInCart, itemsInWishList } = useData();
+  const { currentUser } = useAuth();
   const CartButtons = () => {
     if (itemsInCart.find((item) => item.id === id)) {
       return (
@@ -32,12 +38,15 @@ export function WishListCard({ product }) {
       <div>
         <button
           className="btn btn-primary"
-          onClick={() =>
-            dispatch({
-              type: "MOVE_TO_CART",
-              payload: product,
-            })
-          }
+          onClick={async () => {
+            const response = await moveToCart(currentUser.userId, product._id);
+            response.data.success
+              ? dispatch({
+                  type: "MOVE_TO_CART",
+                  payload: product,
+                })
+              : console.error(response.data.error);
+          }}
         >
           Move To Cart
         </button>
@@ -71,12 +80,18 @@ export function WishListCard({ product }) {
           <div>
             <button
               className="btn btn-tertiary"
-              onClick={() =>
-                dispatch({
-                  type: "REMOVE_FROM_WISHLIST",
-                  payload: product,
-                })
-              }
+              onClick={async () => {
+                const response = await removeFromWishlist(
+                  currentUser.userId,
+                  product._id
+                );
+                response.data.success
+                  ? dispatch({
+                      type: "REMOVE_FROM_WISHLIST",
+                      payload: product,
+                    })
+                  : console.error(response.data.error);
+              }}
             >
               Remove from Wishlist
             </button>

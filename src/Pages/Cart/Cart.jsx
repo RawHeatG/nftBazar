@@ -14,17 +14,17 @@ export function Cart() {
       ) : (
         <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
           {itemsInCart.map((item) => (
-            <CartCard product={item} />
+            <CartCard key={item._id} product={item} />
           ))}
         </div>
       )}
 
       <div className="cart-details">
         <ol>
-          {itemsInCart.map(({ name, quantity, price }) => {
+          {itemsInCart.map(({ name, quantity, price, id }) => {
             total = total + price * quantity;
             return (
-              <li>
+              <li key={id}>
                 <div>
                   <p>
                     {name} x {quantity} = {price * quantity}

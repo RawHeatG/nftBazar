@@ -1,12 +1,14 @@
 import { useParams } from "react-router-dom";
-import { useData } from "../../Contexts";
+import { useData, useAuth } from "../../Contexts";
 import { useNavigate } from "react-router-dom";
 import "./ProductDetails.css";
+import { addToWishlist, addToCart } from "../../services/dataServices";
 
 export function ProductDetails() {
   const navigate = useNavigate();
   const { productId } = useParams();
   const { data, itemsInCart, itemsInWishList, dispatch } = useData();
+  const { currentUser } = useAuth();
   const product = data.find((item) => item.id === productId);
   const {
     id,
@@ -38,12 +40,15 @@ export function ProductDetails() {
     return (
       <button
         className="btn btn-primary interactions-button-cart"
-        onClick={() =>
-          dispatch({
-            type: "ADD_TO_CART",
-            payload: product,
-          })
-        }
+        onClick={async () => {
+          const response = await addToCart(currentUser.userId, product._id);
+          response.data.success
+            ? dispatch({
+                type: "ADD_TO_CART",
+                payload: product,
+              })
+            : console.error(response.data.error);
+        }}
       >
         Add To Cart
       </button>
@@ -64,13 +69,14 @@ export function ProductDetails() {
     return (
       <button
         className="btn btn-tertiary interactions-button-wishlist"
-        onClick={() => {
-          console.log("In ProductDetial, Dispatch called");
-          // wishlistHandler(product);
-          dispatch({
-            type: "ADD_TO_WISHLIST",
-            payload: product,
-          });
+        onClick={async () => {
+          const response = await addToWishlist(currentUser.userId, product._id);
+          response.data.success
+            ? dispatch({
+                type: "ADD_TO_WISHLIST",
+                payload: product,
+              })
+            : console.error(response.data.error);
         }}
       >
         Add to WishList

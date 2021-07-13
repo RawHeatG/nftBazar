@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect } from "react";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { signup } from "../services/authServices";
 
 const AuthContext = createContext();
 
@@ -59,10 +60,7 @@ export function AuthProvider({ children }) {
         email: email,
         password: password,
       };
-      const response = await axios.post(
-        "https://nftBaazarAPI.rawheatg.repl.co/signup",
-        { user }
-      );
+      const response = await signup(user);
       response.data.success ? setUserandNavigate(response) : setAuthError(true);
     } catch (error) {
       console.error("Error occured during signup", error);

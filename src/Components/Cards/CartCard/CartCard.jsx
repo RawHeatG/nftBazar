@@ -1,6 +1,13 @@
-import { useData } from "../../../Contexts";
+import { useData, useAuth } from "../../../Contexts";
 import "./CartCard.css";
-
+import {
+  getCart,
+  addToCart,
+  updateCartQuantity,
+  removeFromCart,
+  moveToWishList,
+} from "../../../services/dataServices";
+import axios from "axios";
 export function CartCard({ product }) {
   let {
     id,
@@ -19,6 +26,7 @@ export function CartCard({ product }) {
     quantity,
   } = product;
   const { dispatch, itemsInCart, itemsInWishList } = useData();
+  const { currentUser } = useAuth();
   const WhichButtonToShow = () => {
     if (itemsInCart.find((item) => item.id === id)) {
       return (
@@ -32,24 +40,37 @@ export function CartCard({ product }) {
           {quantity > 1 ? (
             <button
               className="btn btn-tertiary"
-              onClick={() =>
-                dispatch({
-                  type: "DECREASE_QUANTITY",
-                  payload: product,
-                })
-              }
+              onClick={async () => {
+                const response = await updateCartQuantity(
+                  currentUser.userId,
+                  product._id,
+                  quantity - 1
+                );
+                response.data.success
+                  ? dispatch({
+                      type: "DECREASE_QUANTITY",
+                      payload: product,
+                    })
+                  : console.error(response.data.error);
+              }}
             >
               -
             </button>
           ) : (
             <button
               className="btn btn-tertiary"
-              onClick={() =>
-                dispatch({
-                  type: "REMOVE_QUANTITY",
-                  payload: product,
-                })
-              }
+              onClick={async () => {
+                const response = await removeFromCart(
+                  currentUser.userId,
+                  product._id
+                );
+                response.data.success
+                  ? dispatch({
+                      type: "REMOVE_FROM_CART",
+                      payload: product,
+                    })
+                  : console.error(response.data.error);
+              }}
             >
               Remove
             </button>
@@ -58,12 +79,19 @@ export function CartCard({ product }) {
           <h3>{quantity}</h3>
           <button
             className="btn btn-tertiary"
-            onClick={() =>
-              dispatch({
-                type: "INCREASE_QUANTITY",
-                payload: product,
-              })
-            }
+            onClick={async () => {
+              const response = await updateCartQuantity(
+                currentUser.userId,
+                product._id,
+                quantity + 1
+              );
+              response.data.success
+                ? dispatch({
+                    type: "INCREASE_QUANTITY",
+                    payload: product,
+                  })
+                : console.error(response.data.error);
+            }}
           >
             +
           </button>
@@ -73,12 +101,15 @@ export function CartCard({ product }) {
     return (
       <div>
         <button
-          onClick={() =>
-            dispatch({
-              type: "ADD_TO_CART",
-              payload: product,
-            })
-          }
+          onClick={async () => {
+            const response = await addToCart(currentUser.userId, product._id);
+            response.data.success
+              ? dispatch({
+                  type: "ADD_TO_CART",
+                  payload: product,
+                })
+              : console.error(response.data.error);
+          }}
         >
           Add To Cart
         </button>
@@ -86,7 +117,7 @@ export function CartCard({ product }) {
     );
   };
   return (
-    <div div key={id} className="card">
+    <div key={id} className="card">
       <img
         className="card-img"
         width="100%"
@@ -110,12 +141,18 @@ export function CartCard({ product }) {
         {!itemsInWishList.find((item) => item.id === id) && (
           <button
             className="btn btn-tertiary"
-            onClick={() =>
-              dispatch({
-                type: "MOVE_TO_WISHLIST",
-                payload: product,
-              })
-            }
+            onClick={async () => {
+              const response = await moveToWishList(
+                currentUser.userId,
+                product._id
+              );
+              response.data.success
+                ? dispatch({
+                    type: "MOVE_TO_WISHLIST",
+                    payload: product,
+                  })
+                : console.error(response.data.error);
+            }}
           >
             Move to WishList
           </button>

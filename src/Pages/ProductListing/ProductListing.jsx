@@ -95,7 +95,7 @@ export function ProductListing() {
 
           <div className="products">
             {filteredData.map((item) => (
-              <ProductCard product={item} />
+              <ProductCard key={item._id} product={item} />
             ))}
           </div>
         </>

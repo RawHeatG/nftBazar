@@ -5,8 +5,8 @@ import {
   useEffect,
   useState,
 } from "react";
-import { dataReducer } from "../../Reducers/DataReducer";
-import { useAuth } from "../index";
+import { dataReducer } from "../Reducers/DataReducer";
+import { useAuth } from "./index";
 import axios from "axios";
 
 const DataContext = createContext();
