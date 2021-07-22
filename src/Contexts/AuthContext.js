@@ -23,8 +23,6 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  console.log("Token: ", currentUser?.token);
-
   currentUser?.token
     ? (axios.defaults.headers.common[
         "Authorization"

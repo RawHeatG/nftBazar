@@ -38,6 +38,8 @@ export function WishListCard({ product }) {
       <div>
         <button
           className="btn btn-primary"
+          disabled={!inStock}
+          style={!inStock && { cursor: "no-drop" }}
           onClick={async () => {
             const response = await moveToCart(currentUser.userId, product._id);
             response.data.success
@@ -48,7 +50,7 @@ export function WishListCard({ product }) {
               : console.error(response.data.error);
           }}
         >
-          Move To Cart
+          {inStock ? "Move to cart" : "Out of Stock"}
         </button>
       </div>
     );

@@ -80,7 +80,7 @@ export function ProductCard({ product }) {
     );
   };
   return (
-    <div key={id} className={`card ${inStock ? "" : "disabled-card"}`}>
+    <div key={id} className="card">
       <Link to={`/products/${id}`} className="link">
         <img
           className="card-img"

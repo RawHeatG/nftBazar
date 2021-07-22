@@ -37,9 +37,12 @@ export function ProductDetails() {
         </button>
       );
     }
+    console.log(inStock);
     return (
       <button
         className="btn btn-primary interactions-button-cart"
+        disabled={!inStock}
+        style={!inStock && { cursor: "no-drop" }}
         onClick={async () => {
           const response = await addToCart(currentUser.userId, product._id);
           response.data.success
@@ -50,7 +53,7 @@ export function ProductDetails() {
             : console.error(response.data.error);
         }}
       >
-        Add To Cart
+        {inStock ? "Add to cart" : "Out of Stock"}
       </button>
     );
   };

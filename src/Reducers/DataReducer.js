@@ -18,7 +18,6 @@ export function dataReducer(state, action) {
       };
 
     case "INITIALIZE_CART": {
-      console.log("---------yoooo---------", action.payload);
       return {
         ...state,
         itemsInCart: action.payload,
@@ -51,9 +50,6 @@ export function dataReducer(state, action) {
     }
 
     case "INCREASE_QUANTITY":
-      const cartItem = state.itemsInCart.find(
-        (cartItem) => cartItem.id === action.payload.id
-      );
       return {
         ...state,
         itemsInCart: [
@@ -66,9 +62,6 @@ export function dataReducer(state, action) {
       };
 
     case "DECREASE_QUANTITY":
-      const itemInCart = state.itemsInCart.find(
-        (cartItem) => cartItem.id === action.payload.id
-      );
       return {
         ...state,
         itemsInCart: [

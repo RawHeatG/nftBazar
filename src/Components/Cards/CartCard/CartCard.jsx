@@ -1,13 +1,11 @@
 import { useData, useAuth } from "../../../Contexts";
 import "./CartCard.css";
 import {
-  getCart,
   addToCart,
   updateCartQuantity,
   removeFromCart,
   moveToWishlist,
 } from "../../../services/dataServices";
-import axios from "axios";
 export function CartCard({ product }) {
   let {
     id,

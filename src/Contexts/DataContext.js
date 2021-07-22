@@ -18,9 +18,7 @@ export function DataProvider({ children }) {
 
   useEffect(() => {
     (async function () {
-      console.log("data called");
       const response = await getAllProducts();
-      console.log(response.data.data);
 
       setData(response.data.data);
       setLoading(false);
@@ -56,9 +54,7 @@ export function DataProvider({ children }) {
               type: "INITIALIZE_CART",
               payload: cartResponse.data.data,
             });
-          console.log(cartResponse);
           const wishlistResponse = await getWishlist(currentUser.userId);
-          console.log(wishlistResponse);
           wishlistResponse.data.success &&
             dispatch({
               type: "INITIALIZE_WISHLIST",
@@ -71,9 +67,6 @@ export function DataProvider({ children }) {
     })();
   }, [currentUser]);
 
-  console.log("data called");
-
-  console.log(itemsInCart, itemsInWishList);
   return (
     <DataContext.Provider
       value={{

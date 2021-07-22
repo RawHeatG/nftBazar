@@ -31,10 +31,8 @@ export const getWishlist = async (userId) =>
 export const addToWishlist = async (userId, productId) =>
   await axios.post(`${API_URL}/wishlist/${userId}`, { productId });
 
-export const removeFromWishlist = async (userId, productId) => {
-  console.log("yooooo remove", productId);
-  return await axios.delete(`${API_URL}/wishlist/${userId}/${productId}`);
-};
+export const removeFromWishlist = async (userId, productId) =>
+  await axios.delete(`${API_URL}/wishlist/${userId}/${productId}`);
 
 export const moveToWishlist = async (userId, productId) => {
   const response = await removeFromCart(userId, productId);
