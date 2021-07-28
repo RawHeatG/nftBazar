@@ -23,20 +23,19 @@ export function Login() {
           ? { backgroundColor: "#8ac926", color: "white" }
           : { backgroundColor: "#ff595e", color: "white" }
       );
-      console.log(passwordStyle);
     } else {
       setPasswordStyle({});
     }
   }, [password]);
 
   const loginHandler = () => {
+    console.log(username, password);
     loginUserWithCredentials(username, password);
   };
 
   const logoutHandler = () => {
     logoutUser();
   };
-  console.log(currentUser);
   return (
     <div className="login">
       {currentUser && (
@@ -71,6 +70,22 @@ export function Login() {
                 <span>Sign Up</span>
               </Link>
             </p>
+            <div
+              style={{
+                paddingTop: "1rem",
+                fontSize: "1.25rem",
+                cursor: "pointer",
+                color: "var(--blue)",
+                fontWeight: "bold",
+              }}
+              onClick={() => {
+                setUsername("guest");
+                setPassword("guest123");
+                loginHandler();
+              }}
+            >
+              Login as Guest
+            </div>
           </div>
         </div>
       )}
