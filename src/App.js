@@ -8,7 +8,7 @@ import {
   ProductDetails,
 } from "./Pages";
 import { Navbar } from "./Components";
-import { PrivateRoute } from "./PrivateRote";
+import { PrivateRoute } from "./utils/PrivateRote";
 import { Routes, Route } from "react-router-dom";
 import "./index.css";
 

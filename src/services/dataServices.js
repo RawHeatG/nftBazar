@@ -23,6 +23,8 @@ export const moveToCart = async (userId, productId) => {
     ? await addToCart(userId, productId)
     : response;
 };
+export const clearCart = async (userId) =>
+  await axios.delete(`${API_URL}/cart/${userId}`);
 
 // wishlist services
 export const getWishlist = async (userId) =>

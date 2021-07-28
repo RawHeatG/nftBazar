@@ -24,6 +24,13 @@ export function dataReducer(state, action) {
       };
     }
 
+    case "RESET_CART": {
+      return {
+        ...state,
+        itemsInCart: [],
+      };
+    }
+
     case "INITIALIZE_WISHLIST": {
       return {
         ...state,

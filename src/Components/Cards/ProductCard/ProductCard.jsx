@@ -1,6 +1,6 @@
-import { useData } from "../../../Contexts";
 import { Link } from "react-router-dom";
 import "./ProductCard.css";
+import GradeRoundedIcon from "@material-ui/icons/GradeRounded";
 
 export function ProductCard({ product }) {
   let {
@@ -18,67 +18,15 @@ export function ProductCard({ product }) {
     level,
     color,
   } = product;
-  const { dispatch, itemsInCart, itemsInWishList } = useData();
-  const CartButtons = () => {
-    if (itemsInCart.find((item) => item.id === id)) {
-      return (
-        <div>
-          <Link to="/cart">
-            <button className="btn btn-tertiary">Go To Cart</button>
-          </Link>
-        </div>
-      );
+
+  const ratingStars = (ratings) => {
+    let stars = [];
+    for (let i = 0; i < ratings; i++) {
+      stars.push(<GradeRoundedIcon style={{ color: "var(--yellow)" }} />);
     }
-    return (
-      <div>
-        <button
-          className="btn btn-primary"
-          onClick={() =>
-            dispatch({
-              type: "ADD_TO_CART",
-              payload: product,
-            })
-          }
-        >
-          Add To Cart
-        </button>
-      </div>
-    );
+    return stars;
   };
-  const WishListButtons = () => {
-    if (itemsInWishList.find((item) => item.id === id)) {
-      return (
-        <div>
-          <button
-            className="btn btn-tertiary"
-            onClick={() =>
-              dispatch({
-                type: "REMOVE_FROM_WISHLIST",
-                payload: product,
-              })
-            }
-          >
-            Remove from Wishlist
-          </button>
-        </div>
-      );
-    }
-    return (
-      <div>
-        <button
-          className="btn btn-tertiary"
-          onClick={() =>
-            dispatch({
-              type: "ADD_TO_WISHLIST",
-              payload: product,
-            })
-          }
-        >
-          Add to WishList
-        </button>
-      </div>
-    );
-  };
+
   return (
     <div key={id} className="card">
       <Link to={`/products/${id}`} className="link">
@@ -95,8 +43,14 @@ export function ProductCard({ product }) {
             <span className="card-price">₹ {price}</span>
             <s>1000</s>
           </div>
-          {inStock && <div> In Stock </div>}
-          {!inStock && <div> Out of Stock </div>}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            {ratingStars(ratings)}
+          </div>
           {fastDelivery ? (
             <div> Fast Delivery </div>
           ) : (

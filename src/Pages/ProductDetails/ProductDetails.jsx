@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import "./ProductDetails.css";
 import { addToWishlist, addToCart } from "../../services/dataServices";
 
+import GradeRoundedIcon from "@material-ui/icons/GradeRounded";
+
 export function ProductDetails() {
   const navigate = useNavigate();
   const { productId } = useParams();
@@ -25,6 +27,14 @@ export function ProductDetails() {
     level,
     color,
   } = product;
+
+  const ratingStars = (ratings) => {
+    let stars = [];
+    for (let i = 0; i < ratings; i++) {
+      stars.push(<GradeRoundedIcon style={{ color: "var(--yellow)" }} />);
+    }
+    return stars;
+  };
 
   const CartButtons = () => {
     if (itemsInCart?.find((item) => item.id === id)) {
@@ -103,7 +113,7 @@ export function ProductDetails() {
           <h2>
             By - {brand} {material}
           </h2>
-          <div>{ratings}⭐</div>
+          <div>{ratingStars(ratings)}</div>
           <h2>₹ {price}</h2>
           {fastDelivery && (
             <div className="delivery">Get it delivered in by tommorow!</div>
