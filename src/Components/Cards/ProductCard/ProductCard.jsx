@@ -22,7 +22,9 @@ export function ProductCard({ product }) {
   const ratingStars = (ratings) => {
     let stars = [];
     for (let i = 0; i < ratings; i++) {
-      stars.push(<GradeRoundedIcon style={{ color: "var(--yellow)" }} />);
+      stars.push(
+        <GradeRoundedIcon key={i} style={{ color: "var(--yellow)" }} />
+      );
     }
     return stars;
   };

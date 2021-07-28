@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useData, useAuth } from "../../Contexts";
 import { useNavigate } from "react-router-dom";
 import "./ProductDetails.css";
 import { addToWishlist, addToCart } from "../../services/dataServices";
 
 import GradeRoundedIcon from "@material-ui/icons/GradeRounded";
+import { useEffect, useState } from "react";
 
 export function ProductDetails() {
   const navigate = useNavigate();
@@ -28,10 +29,18 @@ export function ProductDetails() {
     color,
   } = product;
 
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // useEffect(() => {
+  //   setShowLoginModal(false)
+  // }, [])
+
   const ratingStars = (ratings) => {
     let stars = [];
     for (let i = 0; i < ratings; i++) {
-      stars.push(<GradeRoundedIcon style={{ color: "var(--yellow)" }} />);
+      stars.push(
+        <GradeRoundedIcon key={i} style={{ color: "var(--yellow)" }} />
+      );
     }
     return stars;
   };
@@ -47,20 +56,22 @@ export function ProductDetails() {
         </button>
       );
     }
-    console.log(inStock);
     return (
       <button
         className="btn btn-primary interactions-button-cart"
         disabled={!inStock}
-        style={!inStock && { cursor: "no-drop" }}
         onClick={async () => {
-          const response = await addToCart(currentUser.userId, product._id);
-          response.data.success
-            ? dispatch({
-                type: "ADD_TO_CART",
-                payload: product,
-              })
-            : console.error(response.data.error);
+          if (!currentUser) {
+            setShowLoginModal(true);
+          } else {
+            const response = await addToCart(currentUser.userId, product._id);
+            response.data.success
+              ? dispatch({
+                  type: "ADD_TO_CART",
+                  payload: product,
+                })
+              : console.error(response.data.error);
+          }
         }}
       >
         {inStock ? "Add to cart" : "Out of Stock"}
@@ -99,6 +110,21 @@ export function ProductDetails() {
 
   return (
     <>
+      {showLoginModal && (
+        <div>
+          <div className="modal-bg modal-bg-active">
+            <div className="modal">
+              <h2 className="modal-message">Login to place your order</h2>
+              <p className="modal-description">
+                Signup if you don't have an account
+              </p>
+              <Link className="link" to="/login">
+                <button className="btn btn-tertiary">Login In</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="product-details">
         <div className="interactions">
           <img src={image} alt={name} />
@@ -115,6 +141,7 @@ export function ProductDetails() {
           </h2>
           <div>{ratingStars(ratings)}</div>
           <h2>₹ {price}</h2>
+          <div>Ideal for: {idealFor}</div>
           {fastDelivery && (
             <div className="delivery">Get it delivered in by tommorow!</div>
           )}
