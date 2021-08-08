@@ -26,7 +26,7 @@ export function DataProvider({ children }) {
   }, []);
 
   const initialState = {
-    showInventoryAll: true,
+    showInventoryAll: false,
     showFastDeliveryOnly: false,
     sortBy: null,
     itemsInCart: [],

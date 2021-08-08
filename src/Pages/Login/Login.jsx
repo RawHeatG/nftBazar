@@ -29,7 +29,6 @@ export function Login() {
   }, [password]);
 
   const loginHandler = () => {
-    console.log(username, password);
     loginUserWithCredentials(username, password);
   };
 
@@ -52,13 +51,17 @@ export function Login() {
           <div className="form-wrapper">
             <h1>NFT Baazar</h1>
             <input
-              placeholder="Username..."
+              id="username"
+              placeholder="Username"
+              value={username}
               onChange={(event) => setUsername(event.target.value)}
             />
             <input
+              id="password"
               style={{ ...passwordStyle }}
               type="password"
               placeholder="Password"
+              value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
             <button className="btn btn-primary" onClick={loginHandler}>
@@ -81,10 +84,9 @@ export function Login() {
               onClick={() => {
                 setUsername("guest");
                 setPassword("guest123");
-                loginHandler();
               }}
             >
-              Login as Guest
+              Login with Guest credentials
             </div>
           </div>
         </div>

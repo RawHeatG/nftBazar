@@ -10,7 +10,7 @@ export function WishList() {
           <h1>Nothing's here in WishList :(</h1>
         </div>
       ) : (
-        <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
+        <div className="App">
           {itemsInWishList.map((item) => (
             <WishListCard key={item._id} product={item} />
           ))}
