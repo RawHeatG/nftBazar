@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+*{
+  font-family: 'Quicksand', sans-serif;
+  margin: 0;
+}
+.App {
+  text-align: center;
+}
+
+.link {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+/* .canvas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 12vh 1fr;
+  grid-template-areas:  "nav nav",
+                        "main main";
+} */
+
+.nav {
+  grid-area: nav;
+  min-height: 10vh;
+  top: 0;
+} 
+
+.nav-menu .MuiSvgIcon-root{
+  font-size: 2rem;
+  transition: 400ms ease-out;
+}
+
+.nav-menu li :hover {
+  font-size: 3rem;
+  color: black;
+}
+
+.main {
+  grid-area: main;
+  margin-top: 12vh;
+}
+
+.card{
+  width: auto;
+  transition: 400ms ease;
+}
+
+.card:hover {
+  box-shadow: 0 0.5rem 1.5rem 0.25rem rgba(0,0,0,0.25);
+}
+

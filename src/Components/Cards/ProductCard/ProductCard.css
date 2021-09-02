@@ -1,0 +1,31 @@
+.card {
+  max-width: 500px;
+  min-width: 200px;
+  cursor: pointer;
+  height: auto;
+}
+
+.disabled-card {
+  cursor: no-drop;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.card-content {
+  border: none;
+}
+
+.card {
+  box-shadow: 0.25rem 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
+}
+
+.card__buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.card__buttons button {
+  margin: 0.25rem 0;
+  width: 100%;
+  padding: 0.2rem;
+}

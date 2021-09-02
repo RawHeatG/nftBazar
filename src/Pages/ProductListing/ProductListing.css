@@ -1,0 +1,19 @@
+.sidebar {
+    display: flex;
+    padding: 1rem;
+}
+.sidebar > div{
+    margin: 0 1rem;
+}
+
+.sidebar > div > *{
+    margin: 0 0.5rem;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax( 320px, 1fr));
+    row-gap: 0.2rem;
+}
+
+

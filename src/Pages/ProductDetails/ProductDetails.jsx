@@ -1,0 +1,154 @@
+import { Link, useParams } from "react-router-dom";
+import { useData, useAuth } from "../../Contexts";
+import { useNavigate } from "react-router-dom";
+import "./ProductDetails.css";
+import { addToWishlist, addToCart } from "../../services/dataServices";
+
+import GradeRoundedIcon from "@material-ui/icons/GradeRounded";
+import { useEffect, useState } from "react";
+
+export function ProductDetails() {
+  const navigate = useNavigate();
+  const { productId } = useParams();
+  const { data, itemsInCart, itemsInWishList, dispatch } = useData();
+  const { currentUser } = useAuth();
+  const product = data.find((item) => item.id === productId);
+  const {
+    id,
+    name,
+    image,
+    price,
+    material,
+    brand,
+    inStock,
+    fastDelivery,
+    ratings,
+    offer,
+    idealFor,
+    level,
+    color,
+  } = product;
+
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // useEffect(() => {
+  //   setShowLoginModal(false)
+  // }, [])
+
+  const ratingStars = (ratings) => {
+    let stars = [];
+    for (let i = 0; i < ratings; i++) {
+      stars.push(
+        <GradeRoundedIcon key={i} style={{ color: "var(--yellow)" }} />
+      );
+    }
+    return stars;
+  };
+
+  const CartButtons = () => {
+    if (itemsInCart?.find((item) => item.id === id)) {
+      return (
+        <button
+          className="btn btn-primary interactions-button-cart"
+          onClick={() => navigate("/cart")}
+        >
+          Go To Cart
+        </button>
+      );
+    }
+    return (
+      <button
+        className="btn btn-primary interactions-button-cart"
+        disabled={!inStock}
+        onClick={async () => {
+          if (!currentUser) {
+            setShowLoginModal(true);
+          } else {
+            const response = await addToCart(currentUser.userId, product._id);
+            response.data.success
+              ? dispatch({
+                  type: "ADD_TO_CART",
+                  payload: product,
+                })
+              : console.error(response.data.error);
+          }
+        }}
+      >
+        {inStock ? "Add to cart" : "Out of Stock"}
+      </button>
+    );
+  };
+
+  const WishListButtons = () => {
+    if (itemsInWishList?.find((item) => item.id === id)) {
+      return (
+        <button
+          className="btn btn-tertiary interactions-button-wishlist"
+          onClick={() => navigate("/wishlist")}
+        >
+          Go to Wishlist
+        </button>
+      );
+    }
+    return (
+      <button
+        className="btn btn-tertiary interactions-button-wishlist"
+        onClick={async () => {
+          const response = await addToWishlist(currentUser.userId, product._id);
+          response.data.success
+            ? dispatch({
+                type: "ADD_TO_WISHLIST",
+                payload: product,
+              })
+            : console.error(response.data.error);
+        }}
+      >
+        Add to WishList
+      </button>
+    );
+  };
+
+  return (
+    <>
+      {showLoginModal && (
+        <div>
+          <div className="modal-bg modal-bg-active">
+            <div className="modal">
+              <h2 className="modal-message">Login to place your order</h2>
+              <p className="modal-description">
+                Signup if you don't have an account
+              </p>
+              <Link className="link" to="/login">
+                <button className="btn btn-tertiary">Login In</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="product-details">
+        <div className="interactions">
+          <img src={image} alt={name} />
+          <div className="interactions-button">
+            <WishListButtons />
+            <CartButtons />
+          </div>
+        </div>
+
+        <div className="details">
+          <h1>{name}</h1>
+          <h2>
+            By - {brand} {material}
+          </h2>
+          <div>{ratingStars(ratings)}</div>
+          <h2>₹ {price}</h2>
+          <div>Ideal for: {idealFor}</div>
+          {fastDelivery && (
+            <div className="delivery">Get it delivered in by tommorow!</div>
+          )}
+          {!fastDelivery && <div>Delivered within 3 days</div>}
+          <div className="offer">{offer}</div>
+        </div>
+      </div>
+    </>
+  );
+}
